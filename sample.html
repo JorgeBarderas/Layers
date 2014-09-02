@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sample page</title>
+	<style>
+		#panelA {height:500px; width: 333px; background:transparent url(./images/f1.jpg) 0px 0px no-repeat;}
+		#panelB {height:500px; width: 333px; background:transparent url(./images/f2.jpg) 0px 0px no-repeat; display: none;}
+	</style>
+	<script src="./lib/jquery-2.1.1.min.js"></script>
+	<script src="./objects/obj.uiSliderPanel.js" type="text/javascript"></script>
+	<script>
+		function slide() {
+			var options = {
+				panels: {
+					a: {
+						$el: $("#panelA"),
+						type: "slide",
+						mode: "leftToRight",
+						direction: "out"
+					},
+					b: {
+						$el: $("#panelB"),
+						type: "slide",
+						mode: "leftToRight",
+						direction: "in"
+					}
+				},
+				events: {
+					log: function(a_obj, a_type, a_function, a_msg, a_info) {
+						console.log(a_obj, a_type, a_function, a_msg, a_info);
+					}
+				}
+			};
+			$.uiSliderPanel(options);
+		}
+	</script>
+</head>
+<body>
+	<div id='panelA'></div>
+	<div id='panelB'></div>
+	<p><a href="javascript:slide()">Slide</a></p>
+</body>
+</html>
