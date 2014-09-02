@@ -3,118 +3,449 @@
 <head>
 	<title>Sample page</title>
 	<style>
+		h2 {clear: both;}
 		#panelA {height:500px; width: 333px; background:transparent url(./images/f1.jpg) 0px 0px no-repeat;}
 		#panelB {height:500px; width: 333px; background:transparent url(./images/f2.jpg) 0px 0px no-repeat; display: none;}
+		#panelC {height:500px; width: 333px; background:transparent url(./images/f1.jpg) 0px 0px no-repeat;}
+		#panelD {height:500px; width: 333px; background:transparent url(./images/f2.jpg) 0px 0px no-repeat; display: none;}
 	</style>
 	<script src="./lib/jquery-2.1.1.min.js"></script>
 	<script src="./objects/obj.uiSliderPanel.js" type="text/javascript"></script>
+</head>
+<body>
 	<script>
-		function slideIn() {
-			var options = {
-				panels: {
-					a: {
-						$el: $("#panelA"),
-						type: "slide",
-						mode: "leftToRight",
-						direction: "out",
-						z: 0
-					},
-					b: {
-						$el: $("#panelB"),
-						type: "slide",
-						mode: "leftToRight",
-						direction: "in",
-						z: 1
-					}
-				},
+		var options = {
 				events: {
 					log: function(a_obj, a_type, a_function, a_msg, a_info) {
 						console.log(a_obj, a_type, a_function, a_msg, a_info);
 					}
 				}
 			};
-			$.uiSliderPanel(options);
-		}
-		function slideOut() {
-			var options = {
-				panels: {
-					a: {
+		$.uiSliderPanel.Initialize(options);
+		function slideIn(mode) {
+			options = {
+				instance: "A-B",
+				panels: [
+					{
 						$el: $("#panelA"),
 						type: "slide",
-						mode: "rightToLeft",
-						direction: "in",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: 0,
 						z: 0
 					},
-					b: {
+					{
 						$el: $("#panelB"),
 						type: "slide",
-						mode: "rightToLeft",
-						direction: "out",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 0,
 						z: 1
 					}
-				},
-				events: {
-					log: function(a_obj, a_type, a_function, a_msg, a_info) {
-						console.log(a_obj, a_type, a_function, a_msg, a_info);
-					}
-				}
+				]
 			};
 			$.uiSliderPanel(options);
 		}
-		function toppleIn() {
-			var options = {
-				panels: {
-					a: {
+		function slideOut(mode) {
+			options = {
+				instance: "A-B",
+				panels: [
+					{
 						$el: $("#panelA"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 0,
 						z: 0
 					},
-					b: {
+					{
 						$el: $("#panelB"),
 						type: "slide",
-						mode: "leftToRight",
-						direction: "in",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: 0,
 						z: 1
 					}
-				},
-				events: {
-					log: function(a_obj, a_type, a_function, a_msg, a_info) {
-						console.log(a_obj, a_type, a_function, a_msg, a_info);
-					}
-				}
+				]
 			};
 			$.uiSliderPanel(options);
 		}
-		function toppleOut() {
-			var options = {
-				panels: {
-					a: {
+		function slideInDelay(mode) {
+			options = {
+				instance: "A-B",
+				panels: [
+					{
 						$el: $("#panelA"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 900,
+						position: 0,
 						z: 0
 					},
-					b: {
+					{
 						$el: $("#panelB"),
 						type: "slide",
-						mode: "rightToLeft",
-						direction: "out",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 0,
 						z: 1
 					}
-				},
-				events: {
-					log: function(a_obj, a_type, a_function, a_msg, a_info) {
-						console.log(a_obj, a_type, a_function, a_msg, a_info);
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function slideOutDelay(mode) {
+			options = {
+				instance: "A-B",
+				panels: [
+					{
+						$el: $("#panelA"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 0,
+						z: 0
+					},
+					{
+						$el: $("#panelB"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 900,
+						position: 0,
+						z: 1
 					}
-				}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function toppleIn(mode) {
+			options = {
+				instance: "A-B",
+				panels: [
+					{
+						$el: $("#panelA"),
+						type: "",
+						mode: "",
+						direction: "out",
+						duration: 500,
+						position: 0,
+						z: 0
+					},
+					{
+						$el: $("#panelB"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 0,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function toppleOut(mode) {
+			options = {
+				instance: "A-B",
+				panels: [
+					{
+						$el: $("#panelA"),
+						type: "",
+						mode: "",
+						direction: "in",
+						duration: 500,
+						position: 0,
+						z: 0
+					},
+					{
+						$el: $("#panelB"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: 0,
+						z: 1
+					}
+				]
 			};
 			$.uiSliderPanel(options);
 		}
 	</script>
-</head>
-<body>
-	<div id='panelA'></div>
-	<div id='panelB'></div>
-	<p><a href="javascript:slideIn()">SlideIn</a></p>
-	<p><a href="javascript:slideOut()">SlideOut</a></p>
-	<p><a href="javascript:toppleIn()">ToppleIn</a></p>
-	<p><a href="javascript:toppleOut()">ToppleOut</a></p>
+	<h2>Slider (full)</h2>
+	<div style='float: left;'>
+		<div id='panelA'></div>
+		<div id='panelB'></div>
+	</div>
+	<div style="float: left;">
+		<p>
+			<a href="javascript:slideIn('rightToLeft')">SlideIn (right)</a>
+			<a href="javascript:slideOut('leftToRight')">SlideOut (left)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelay('rightToLeft')">SlideIn (Delay) (right)</a>
+			<a href="javascript:slideOutDelay('leftToRight')">SlideOut (Delay) (left)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleIn('rightToLeft')">ToppleIn (right)</a>
+			<a href="javascript:toppleOut('leftToRight')">ToppleOut (left)</a>
+		</p>
+		<p>
+			<a href="javascript:slideIn('leftToRight')">SlideIn (left)</a>
+			<a href="javascript:slideOut('rightToLeft')">SlideOut (right)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelay('leftToRight')">SlideIn (Delay) (left)</a>
+			<a href="javascript:slideOutDelay('rightToLeft')">SlideOut (Delay) (right)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleIn('leftToRight')">ToppleIn (left)</a>
+			<a href="javascript:toppleOut('rightToLeft')">ToppleOut (right)</a>
+		</p>
+		<p>
+			<a href="javascript:slideIn('topToBottom')">SlideIn (top)</a>
+			<a href="javascript:slideOut('bottomToTop')">SlideOut (bottom)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelay('topToBottom')">SlideIn (Delay) (top)</a>
+			<a href="javascript:slideOutDelay('bottomToTop')">SlideOut (Delay) (bottom)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleIn('topToBottom')">ToppleIn (top)</a>
+			<a href="javascript:toppleOut('bottomToTop')">ToppleOut (bottom)</a>
+		</p>
+		<p>
+			<a href="javascript:slideIn('bottomToTop')">SlideIn (bottom)</a>
+			<a href="javascript:slideOut('topToBottom')">SlideOut (top)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelay('bottomToTop')">SlideIn (Delay) (bottom)</a>
+			<a href="javascript:slideOutDelay('topToBottom')">SlideOut (Delay) (top)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleIn('bottomToTop')">ToppleIn (bottom)</a>
+			<a href="javascript:toppleOut('topToBottom')">ToppleOut (top)</a>
+		</p>
+	</div>
+	<script type="text/javascript">
+		function slideInPartial(mode) {
+			options = {
+				instance: "C-D",
+				panels: [
+					{
+						$el: $("#panelC"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: 80,
+						z: 0
+					},
+					{
+						$el: $("#panelD"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function slideOutPartial(mode) {
+			options = {
+				instance: "C-D",
+				panels: [
+					{
+						$el: $("#panelC"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 80,
+						z: 0
+					},
+					{
+						$el: $("#panelD"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function slideInDelayPartial(mode) {
+			options = {
+				instance: "C-D",
+				panels: [
+					{
+						$el: $("#panelC"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 900,
+						position: 80,
+						z: 0
+					},
+					{
+						$el: $("#panelD"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function slideOutDelayPartial(mode) {
+			options = {
+				instance: "C-D",
+				panels: [
+					{
+						$el: $("#panelC"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 80,
+						z: 0
+					},
+					{
+						$el: $("#panelD"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 900,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function toppleInPartial(mode) {
+			options = {
+				instance: "C-D",
+				panels: [
+					{
+						$el: $("#panelC"),
+						type: "",
+						mode: "",
+						direction: "out",
+						duration: 500,
+						position: 80,
+						z: 0
+					},
+					{
+						$el: $("#panelD"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function toppleOutPartial(mode) {
+			options = {
+				instance: "C-D",
+				panels: [
+					{
+						$el: $("#panelC"),
+						type: "",
+						mode: "",
+						direction: "in",
+						duration: 500,
+						position: 80,
+						z: 0
+					},
+					{
+						$el: $("#panelD"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+	</script>
+	<h2>Slider (partial)</h2>
+	<div style='float: left;'>
+		<div id='panelC'></div>
+		<div id='panelD'></div>
+	</div>
+	<div style="float: left;">
+		<p>
+			<a href="javascript:slideInPartial('rightToLeft')">SlideIn (right)</a>
+			<a href="javascript:slideOutPartial('leftToRight')">SlideOut (left)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelayPartial('rightToLeft')">SlideIn (Delay) (right)</a>
+			<a href="javascript:slideOutDelayPartial('leftToRight')">SlideOut (Delay) (left)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleInPartial('rightToLeft')">ToppleIn (right)</a>
+			<a href="javascript:toppleOutPartial('leftToRight')">ToppleOut (left)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInPartial('leftToRight')">SlideIn (left)</a>
+			<a href="javascript:slideOutPartial('rightToLeft')">SlideOut (right)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelayPartial('leftToRight')">SlideIn (Delay) (left)</a>
+			<a href="javascript:slideOutDelayPartial('rightToLeft')">SlideOut (Delay) (right)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleInPartial('leftToRight')">ToppleIn (left)</a>
+			<a href="javascript:toppleOutPartial('rightToLeft')">ToppleOut (right)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInPartial('topToBottom')">SlideIn (top)</a>
+			<a href="javascript:slideOutPartial('bottomToTop')">SlideOut (bottom)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelayPartial('topToBottom')">SlideIn (Delay) (top)</a>
+			<a href="javascript:slideOutDelayPartial('bottomToTop')">SlideOut (Delay) (bottom)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleInPartial('topToBottom')">ToppleIn (top)</a>
+			<a href="javascript:toppleOutPartial('bottomToTop')">ToppleOut (bottom)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInPartial('bottomToTop')">SlideIn (bottom)</a>
+			<a href="javascript:slideOutPartial('topToBottom')">SlideOut (top)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelayPartial('bottomToTop')">SlideIn (Delay) (bottom)</a>
+			<a href="javascript:slideOutDelayPartial('topToBottom')">SlideOut (Delay) (top)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleInPartial('bottomToTop')">ToppleIn (bottom)</a>
+			<a href="javascript:toppleOutPartial('topToBottom')">ToppleOut (top)</a>
+		</p>
+	</div>
 </body>
 </html>
