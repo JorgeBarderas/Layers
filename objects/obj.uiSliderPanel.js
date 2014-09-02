@@ -94,6 +94,13 @@
                 break;
             }
             break;
+            default:
+                af_panel.$el
+                  .css("position", "absolute")
+                  .css("top", "0px")
+                  .css("left", "0px")
+                  .css("display", "block");
+                break;
         }
       });
     } catch (err) {
