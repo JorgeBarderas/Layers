@@ -44,8 +44,51 @@
                       .css("top", "0px")
                       .css("left", defaults.wrap.$el.width()+"px")
                       .css("display", "block");
+
+                    // animation
+                    af_panel.$el.animate({
+                      left: 0
+                    }, defaults.animation.slide);
                     break;
                   case "out":
+                    af_panel.$el
+                      .css("position", "absolute")
+                      .css("top", "0px")
+                      .css("left", "0px")
+                      .css("display", "block");
+
+                    // animation
+                    af_panel.$el.animate({
+                      left: -defaults.wrap.$el.width()
+                    }, defaults.animation.slide);
+                    break;
+                }
+                break;
+              case "rightToLeft":
+                switch (af_panel.direction) {
+                  case "in":
+                    af_panel.$el
+                      .css("position", "absolute")
+                      .css("top", "0px")
+                      .css("left", "-"+defaults.wrap.$el.width()+"px")
+                      .css("display", "block");
+
+                    // animation
+                    af_panel.$el.animate({
+                      left: 0
+                    }, defaults.animation.slide);
+                    break;
+                  case "out":
+                    af_panel.$el
+                      .css("position", "absolute")
+                      .css("top", "0px")
+                      .css("left", "0px")
+                      .css("display", "block");
+
+                    // animation
+                    af_panel.$el.animate({
+                      left: defaults.wrap.$el.width()
+                    }, defaults.animation.slide);
                     break;
                 }
                 break;
@@ -53,13 +96,6 @@
             break;
         }
       });
-
-
-      // animation
-      defaults.panels.b.$el.animate({
-        left: 0
-      }, defaults.animation.slide);
-
     } catch (err) {
       _writeLog('error', 'Initialize', err, err.description);
     }
