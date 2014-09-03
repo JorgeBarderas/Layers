@@ -53,12 +53,13 @@
                             }, af_panel.duration);
                             break;
                           case "out":
-                            var tWidth = (af_panel.position != 0) ? instance.$wrap.width() - af_panel.position : instance.$wrap.width();
+                            var tWidth = (af_panel.position != 0) ? instance.$wrap.width() + af_panel.position : instance.$wrap.width();
                             af_panel.$el
                               .css("position", "absolute")
                               .css("top", "0px")
                               .css("left", "0px")
-                              .css("display", "block");
+                              .css("display", "block")
+                              .width(instance.$wrap.width());
 
                             // animation
                             if (af_panel.position != 0) {
@@ -76,26 +77,50 @@
                       case "leftToRight":
                         switch (af_panel.direction) {
                           case "in":
-                            var tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
+                            var tWidth = 0;
+                            var tLeft = 0;
+                            if (af_panel.z == 0) {
+                                tWidth = (af_panel.position != 0) ? instance.$wrap.width() + af_panel.position : instance.$wrap.width();
+                                tLeft = (af_panel.position != 0) ? 0 : -instance.$wrap.width();                                
+                            } else {
+                                tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
+                                tLeft = (af_panel.position != 0) ? -af_panel.position : -instance.$wrap.width();                                
+                            }
                             af_panel.$el
-                              .css("position", "absolute")
-                              .css("top", "0px")
-                              .css("left", "-"+tWidth+"px")
-                              .css("display", "block")
-                              .width(tWidth);
+                                .css("position", "absolute")
+                                .css("top", "0px")
+                                .css("left", tLeft+"px")
+                                .css("display", "block")
+                                .width(tWidth);
 
                             // animation
-                            af_panel.$el.animate({
-                              left: 0
-                            }, af_panel.duration);
+
+                            if (af_panel.position != 0) {
+                                if (af_panel.z == 0) {
+                                    af_panel.$el.animate({
+                                      width: instance.$wrap.width()
+                                    }, af_panel.duration);                                    
+                                } else {
+                                    af_panel.$el.animate({
+                                      width: tWidth,
+                                      left: 0
+                                    }, af_panel.duration);                                    
+                                }
+                            } else {
+                                af_panel.$el.animate({
+                                  left: 0
+                                }, af_panel.duration);
+                            }
                             break;
                           case "out":
+                            var tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
                             var tLeft = (af_panel.position != 0) ? instance.$wrap.width() - af_panel.position : 0;
                             af_panel.$el
                               .css("position", "absolute")
                               .css("top", "0px")
                               .css("left", tLeft+"px")
-                              .css("display", "block");
+                              .css("display", "block")
+                              .width(tWidth);
 
                             // animation
                             af_panel.$el.animate({
@@ -197,7 +222,6 @@
         } catch (err) {
             _writeLog('error', '_getInstance', err, err.description);
         }
-        console.log(inst);
         return inst;
     };
     var _writeLog = function (a_type, a_function, a_msg, a_info) {

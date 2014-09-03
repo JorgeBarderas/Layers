@@ -3,11 +3,13 @@
 <head>
 	<title>Sample page</title>
 	<style>
+		body {background-color: #111; font-family: arial, verdana, sans-serif;}
+		a {color: white; padding: 5px 10px; margin: 0px 5px; border: solid 1px white; text-decoration: none; font-size: .8em;}
 		h2 {clear: both;}
-		#panelA {height:500px; width: 333px; background:transparent url(./images/f1.jpg) 0px 0px no-repeat;}
-		#panelB {height:500px; width: 333px; background:transparent url(./images/f2.jpg) 0px 0px no-repeat; display: none;}
-		#panelC {height:500px; width: 333px; background:transparent url(./images/f1.jpg) 0px 0px no-repeat;}
-		#panelD {height:500px; width: 333px; background:transparent url(./images/f2.jpg) 0px 0px no-repeat; display: none;}
+		#panelA {height:500px; width: 333px; background:transparent url(./images/f1.jpg) 0px 0px no-repeat; background-size: contain;}
+		#panelB {height:500px; width: 333px; background:transparent url(./images/f2.jpg) 0px 0px no-repeat; display: none;background-size: contain;}
+		#panelC {height:500px; width: 333px; background:transparent url(./images/f3.jpg) 0px 0px no-repeat;background-size: contain;}
+		#panelD {height:500px; width: 333px; background:transparent url(./images/f4.jpg) 0px 0px no-repeat; display: none;background-size: contain;}
 	</style>
 	<script src="./lib/jquery-2.1.1.min.js"></script>
 	<script src="./objects/obj.uiSliderPanel.js" type="text/javascript"></script>
@@ -245,7 +247,7 @@
 						mode: mode,
 						direction: "out",
 						duration: 500,
-						position: 80,
+						position: -80,
 						z: 0
 					},
 					{
@@ -271,7 +273,7 @@
 						mode: mode,
 						direction: "in",
 						duration: 500,
-						position: 80,
+						position: -80,
 						z: 0
 					},
 					{
@@ -297,7 +299,7 @@
 						mode: mode,
 						direction: "out",
 						duration: 900,
-						position: 80,
+						position: -80,
 						z: 0
 					},
 					{
@@ -323,7 +325,7 @@
 						mode: mode,
 						direction: "in",
 						duration: 500,
-						position: 80,
+						position: -80,
 						z: 0
 					},
 					{
@@ -349,7 +351,7 @@
 						mode: "",
 						direction: "out",
 						duration: 500,
-						position: 80,
+						position: 0,
 						z: 0
 					},
 					{
@@ -375,7 +377,7 @@
 						mode: "",
 						direction: "in",
 						duration: 500,
-						position: 80,
+						position: 0,
 						z: 0
 					},
 					{
