@@ -29,7 +29,10 @@
                     af_panel.$el.wrap($wrap);
                     instance.$wrap = $("#sp-"+instance.id);
                 }
-                af_panel.$el.appendTo(instance.$wrap);
+                af_panel.$el
+                    .appendTo(instance.$wrap)
+                    .width(instance.$wrap.width())
+                    .height(instance.$wrap.height());
 
                 // positioning the elements
                 switch (af_panel.type) {
@@ -45,9 +48,9 @@
                                 tLeft = (af_panel.position != 0) ? -af_panel.position : instance.$wrap.width();                             
                             } else {
                                 tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
-                                tLeft = (af_panel.position != 0) ? instance.$wrap.width() : instance.$wrap.width();                                
+                                tLeft = instance.$wrap.width();                                
                             }
-                            var tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("top", "0px")
@@ -58,20 +61,25 @@
                             // animation
                             if (af_panel.position != 0) {
                                 if (af_panel.z == 0) {
+                                    tWidth = instance.$wrap.width();
+                                    tLeft = 0;
                                     af_panel.$el.animate({
-                                        width: instance.$wrap.width(),
-                                        left: 0
+                                        width: tWidth,
+                                        left: tLeft
                                     }, af_panel.duration);
                                 } else {
+                                    tLeft = instance.$wrap.width() - af_panel.position;
                                     af_panel.$el.animate({
-                                      left: instance.$wrap.width() - af_panel.position
+                                      left: tLeft
                                     }, af_panel.duration);
                                 }
                             } else {
+                                tLeft = 0;
                                 af_panel.$el.animate({
-                                  left: 0
+                                  left: tLeft
                                 }, af_panel.duration);
                             }
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             break;
                           case "out":
                             if (af_panel.z == 0) {
@@ -81,7 +89,7 @@
                                 tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
                                 tLeft = 0;                                
                             }
-                            
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("top", "0px")
@@ -105,6 +113,7 @@
                                   left: -instance.$wrap.width()
                                 }, af_panel.duration);
                             }
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             break;
                         }
                         break;
@@ -120,6 +129,7 @@
                                 tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
                                 tLeft = (af_panel.position != 0) ? -af_panel.position : -instance.$wrap.width();                                
                             }
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             af_panel.$el
                                 .css("position", "absolute")
                                 .css("top", "0px")
@@ -131,20 +141,23 @@
 
                             if (af_panel.position != 0) {
                                 if (af_panel.z == 0) {
+                                    tWidth = instance.$wrap.width();
                                     af_panel.$el.animate({
-                                      width: instance.$wrap.width()
+                                      width: tWidth
                                     }, af_panel.duration);                                    
                                 } else {
+                                    tLeft = 0;
                                     af_panel.$el.animate({
-                                      width: tWidth,
-                                      left: 0
+                                      left: tLeft
                                     }, af_panel.duration);                                    
                                 }
                             } else {
+                                tLeft = 0;
                                 af_panel.$el.animate({
-                                  left: 0
+                                  left: tLeft
                                 }, af_panel.duration);
                             }
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             break;
                           case "out":
                             var tWidth = 0;
@@ -156,6 +169,7 @@
                               tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
                               tLeft = (af_panel.position != 0) ? instance.$wrap.width() - af_panel.position : 0;
                             }
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("top", "0px")
@@ -166,89 +180,211 @@
                             // animation
                             if (af_panel.position != 0) {
                               if (af_panel.z == 0) {
+                                tWidth = instance.$wrap.width() + af_panel.position;
+                                tLeft = -af_panel.position;
                                 af_panel.$el.animate({
-                                  width: instance.$wrap.width() + af_panel.position,
-                                  left: -af_panel.position
+                                  width: tWidth,
+                                  left: tLeft
                                 }, af_panel.duration);
                               } else {
+                                tLeft = instance.$wrap.width();
                                 af_panel.$el.animate({
-                                  left: instance.$wrap.width()
+                                  left: tLeft
                                 }, af_panel.duration);
                               }
                             } else {
-                              af_panel.$el.animate({
-                                left: instance.$wrap.width()
-                              }, af_panel.duration);
+                                tLeft = instance.$wrap.width();
+                                af_panel.$el.animate({
+                                    left: tLeft
+                                }, af_panel.duration);
                             }
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             break;
                         }
                         break;
                       case "topToBottom":
                         switch (af_panel.direction) {
                           case "in":
+                            var tHeight = 0;
+                            var tTop = 0;
+                            if (af_panel.z == 0) {
+                                tHeight = (af_panel.position != 0) ? instance.$wrap.height() + af_panel.position : instance.$wrap.height();
+                                tTop = (af_panel.position != 0) ? 0 : -instance.$wrap.height();                             
+                            } else {
+                                tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
+                                tTop = (af_panel.position != 0) ? -af_panel.position : -instance.$wrap.height();                                
+                            }
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("left", "0px")
-                              .css("top", "-"+instance.$wrap.height()+"px")
-                              .css("display", "block");
+                              .css("top", tTop+"px")
+                              .css("display", "block")
+                              .height(tHeight);
 
                             // animation
-                            var tTop = (af_panel.position != 0) ? instance.$wrap.height() - af_panel.position : 0;
-                            af_panel.$el.animate({
-                              top: tTop
-                            }, af_panel.duration);
+                            if (af_panel.position != 0) {
+                              if (af_panel.z == 0) {
+                                tHeight = instance.$wrap.height();
+                                af_panel.$el.animate({
+                                  height: tHeight
+                                }, af_panel.duration);
+                              } else {
+                                tTop = 0;
+                                af_panel.$el.animate({
+                                  top: tTop
+                                }, af_panel.duration);
+                              }
+                            } else {
+                                tTop = 0;
+                                af_panel.$el.animate({
+                                    top: tTop
+                                }, af_panel.duration);
+                            }
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             break;
                           case "out":
+                            var tHeight = 0;
+                            var tTop = 0;
+                            if (af_panel.z == 0) {
+                                tHeight = (af_panel.position != 0) ? instance.$wrap.height() : instance.$wrap.height();
+                                tTop = (af_panel.position != 0) ? 0 : 0;                             
+                            } else {
+                                tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
+                                tTop = (af_panel.position != 0) ? instance.$wrap.height() -af_panel.position : 0;                                
+                            }
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
+
                             af_panel.$el
                               .css("position", "absolute")
-                              .css("top", "0px")
+                              .css("top", tTop+"px")
                               .css("left", "0px")
-                              .css("display", "block");
+                              .css("display", "block")
+                              .height(tHeight);
 
                             // animation
-                            var tTop = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
-                            af_panel.$el.animate({
-                              top: tTop
-                            }, af_panel.duration);
+                            if (af_panel.position != 0) {
+                              if (af_panel.z == 0) {
+                                tTop = -af_panel.position;
+                                tHeight = instance.$wrap.height() + af_panel.position;
+                                af_panel.$el.animate({
+                                  height: tHeight,
+                                  top: tTop
+                                }, af_panel.duration);
+                              } else {
+                                tTop = instance.$wrap.height();
+                                af_panel.$el.animate({
+                                  top: tTop
+                                }, af_panel.duration);
+                              }
+                            } else {
+                              tTop = instance.$wrap.height();
+                              af_panel.$el.animate({
+                                top: tTop
+                              }, af_panel.duration);
+                            }
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             break;
                         }
                         break;
                       case "bottomToTop":
                         switch (af_panel.direction) {
                           case "in":
+                            var tHeight = 0;
+                            var tTop = 0;
+                            if (af_panel.z == 0) {
+                                tHeight = (af_panel.position != 0) ? instance.$wrap.height() +af_panel.position : instance.$wrap.height();
+                                tTop = (af_panel.position != 0) ? -af_panel.position : instance.$wrap.height();                             
+                            } else {
+                                tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
+                                tTop = (af_panel.position != 0) ? instance.$wrap.height() : instance.$wrap.height();                                
+                            }
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("left", "0px")
-                              .css("top", instance.$wrap.height()+"px")
-                              .css("display", "block");
+                              .css("top", tTop+"px")
+                              .css("display", "block")
+                              .height(tHeight);
 
                             // animation
-                            af_panel.$el.animate({
-                              top: 0
-                            }, af_panel.duration);
+                            if (af_panel.position != 0) {
+                              if (af_panel.z == 0) {
+                                tTop = 0;
+                                tHeight = instance.$wrap.height();
+                                af_panel.$el.animate({
+                                  height: tHeight,
+                                  top: tTop
+                                }, af_panel.duration);
+                              } else {
+                                tTop = instance.$wrap.height() -af_panel.position;
+                                af_panel.$el.animate({
+                                  top: tTop
+                                }, af_panel.duration);
+                              }
+                            } else {
+                              tTop = 0;
+                              af_panel.$el.animate({
+                                top: tTop
+                              }, af_panel.duration);
+                            }
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             break;
                           case "out":
+                            var tHeight = 0;
+                            var tTop = 0;
+                            if (af_panel.z == 0) {
+                                tHeight = (af_panel.position != 0) ? instance.$wrap.height() : instance.$wrap.height();
+                                tTop = (af_panel.position != 0) ? 0 : 0;                             
+                            } else {
+                                tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
+                                tTop = (af_panel.position != 0) ? 0 : 0;                                
+                            }
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             af_panel.$el
                               .css("position", "absolute")
-                              .css("top", "0px")
+                              .css("top", tTop+"px")
                               .css("left", "0px")
-                              .css("display", "block");
+                              .css("display", "block")
+                              .height(tHeight);
 
                             // animation
-                            af_panel.$el.animate({
-                              top: -instance.$wrap.height()
-                            }, af_panel.duration);
+                            if (af_panel.position != 0) {
+                              if (af_panel.z == 0) {
+                                tTop = 0;
+                                tHeight = instance.$wrap.height() + af_panel.position;
+                                af_panel.$el.animate({
+                                  height: tHeight,
+                                  top: tTop
+                                }, af_panel.duration);
+                              } else {
+                                tTop = -af_panel.position;
+                                af_panel.$el.animate({
+                                  top: tTop
+                                }, af_panel.duration);
+                              }
+                            } else {
+                              tTop = -instance.$wrap.height();
+                              af_panel.$el.animate({
+                                top: tTop
+                              }, af_panel.duration);
+                            }
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
+
                             break;
                         }
                         break;
                     }
                     break;
                     default:
+                        _writeLog('info', '_slidePanel', "X|"+af_panel.type+"|default|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:0;left:0;height:"+instance.$wrap.height()+";width:"+instance.$wrap.width());
                         af_panel.$el
                           .css("position", "absolute")
                           .css("top", "0px")
                           .css("left", "0px")
-                          .css("display", "block");
+                          .css("display", "block")
+                          .width(instance.$wrap.width())
+                          .height(instance.$wrap.height());
                         break;
                 }
             });

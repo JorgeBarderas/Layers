@@ -3,14 +3,17 @@
 <head>
 	<title>Sample page</title>
 	<style>
-		body {background-color: #111; font-family: arial, verdana, sans-serif;}
-		a {color: white; padding: 5px 10px; margin: 0px 5px; border: solid 1px white; text-decoration: none; font-size: .8em; background-color: #222; border-radius: 2px;}
+		body {background-color: #222; font-family: arial, verdana, sans-serif;}
+		a {color: white; padding: 5px 10px; margin: 0px 5px; border: solid 1px white; text-decoration: none; font-size: .8em; background-color: #111; border-radius: 2px;}
 		a:hover {background-color: #333;}
 		h2 {clear: both; color: white; padding: 10px 10px 5px 10px; margin: 0px;}
-		#panelA {height:500px; width: 333px; background:transparent url(./images/f1.jpg) 0px 0px no-repeat; background-size: contain;}
-		#panelB {height:500px; width: 333px; background:transparent url(./images/f2.jpg) 0px 0px no-repeat; display: none;background-size: contain;}
-		#panelC {height:500px; width: 333px; background:transparent url(./images/f3.jpg) 0px 0px no-repeat;background-size: contain;}
-		#panelD {height:500px; width: 333px; background:transparent url(./images/f4.jpg) 0px 0px no-repeat; display: none;background-size: contain;}
+		#panelA {height:400px; width: 333px; background-color: #FF851B; border-radius: 300px;}
+		#panelB {height:400px; width: 333px; background-color: #FF4136; border-radius: 300px; display:none;}
+		#panelC {height:400px; width: 333px; background-color: #39CCCC; border-radius: 300px;}
+		#panelD {height:400px; width: 333px; background-color: #3D9970; border-radius: 300px; display:none;}
+		#panelE {height:400px; width: 333px; background-color: #0074D9; border-radius: 300px;}
+		#panelF {height:400px; width: 333px; background-color: #7FDBFF; border-radius: 300px; display:none;}
+		#panelG {height:400px; width: 333px; background-color: #39CCCC; border-radius: 300px; display:none;}
 	</style>
 	<script src="./lib/jquery-2.1.1.min.js"></script>
 	<script src="./objects/obj.uiSliderPanel.js" type="text/javascript"></script>
@@ -182,7 +185,7 @@
 			$.uiSliderPanel(options);
 		}
 	</script>
-	<h2>Slider (full)</h2>
+	<h2>Layers (full)</h2>
 	<div style='float: left;'>
 		<div id='panelA'></div>
 		<div id='panelB'></div>
@@ -395,7 +398,7 @@
 			$.uiSliderPanel(options);
 		}
 	</script>
-	<h2>Slider (partial)</h2>
+	<h2>Layers (partial)</h2>
 	<div style='float: left;'>
 		<div id='panelC'></div>
 		<div id='panelD'></div>
@@ -448,6 +451,81 @@
 		<p>
 			<a href="javascript:toppleInPartial('bottomToTop')">ToppleIn (bottom)</a>
 			<a href="javascript:toppleOutPartial('topToBottom')">ToppleOut (top)</a>
+		</p>
+	</div>
+	<script type="text/javascript">
+		function slideInPartialMulti(mode) {
+			options = {
+				instance: "E-F-G",
+				panels: [
+					{
+						$el: $("#panelE"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: -80,
+						z: 0
+					},
+					{
+						$el: $("#panelF"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: -80,
+						z: 1
+					},
+					{
+						$el: $("#panelG"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 80,
+						z: 2
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function slideOutPartialMulti(mode) {
+			options = {
+				instance: "E-F-G",
+				panels: [
+					{
+						$el: $("#panelE"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: -80,
+						z: 0
+					},
+					{
+						$el: $("#panelF"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+	</script>
+	<h2>Multiple layers (partial)</h2>
+	<div style='float: left;'>
+		<div id='panelE'></div>
+		<div id='panelF'></div>
+		<div id='panelG'></div>
+	</div>
+	<div style="float: left;">
+		<p>
+			<a href="javascript:slideInPartial('rightToLeft')">SlideIn (right)</a>
+			<a href="javascript:slideOutPartial('leftToRight')">SlideOut (left)</a>
 		</p>
 	</div>
 </body>
