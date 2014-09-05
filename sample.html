@@ -528,6 +528,110 @@
 			};
 			$.uiSliderPanel(options);
 		}
+		function slideInDelayPartialMulti(mode) {
+			options = {
+				instance: "C-D",
+				panels: [
+					{
+						$el: $("#panelC"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 900,
+						position: -80,
+						z: 0
+					},
+					{
+						$el: $("#panelD"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function slideOutDelayPartialMulti(mode) {
+			options = {
+				instance: "C-D",
+				panels: [
+					{
+						$el: $("#panelC"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: -80,
+						z: 0
+					},
+					{
+						$el: $("#panelD"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 900,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function toppleInPartialMulti(mode) {
+			options = {
+				instance: "C-D",
+				panels: [
+					{
+						$el: $("#panelC"),
+						type: "",
+						mode: "",
+						direction: "out",
+						duration: 500,
+						position: 0,
+						z: 0
+					},
+					{
+						$el: $("#panelD"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
+		function toppleOutPartialMulti(mode) {
+			options = {
+				instance: "C-D",
+				panels: [
+					{
+						$el: $("#panelC"),
+						type: "",
+						mode: "",
+						direction: "in",
+						duration: 500,
+						position: 0,
+						z: 0
+					},
+					{
+						$el: $("#panelD"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: 80,
+						z: 1
+					}
+				]
+			};
+			$.uiSliderPanel(options);
+		}
 	</script>
 	<h2>Multiple layers (partial)</h2>
 	<div style='float: left;'>
@@ -541,8 +645,44 @@
 			<a href="javascript:slideOutPartialMulti('leftToRight')">SlideOut (left)</a>
 		</p>
 		<p>
+			<a href="javascript:slideInDelayPartialMulti('rightToLeft')">SlideIn (Delay) (right)</a>
+			<a href="javascript:slideOutDelayPartialMulti('leftToRight')">SlideOut (Delay) (left)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleInPartialMulti('rightToLeft')">ToppleIn (right)</a>
+			<a href="javascript:toppleOutPartialMulti('leftToRight')">ToppleOut (left)</a>
+		</p>
+		<p>
 			<a href="javascript:slideInPartialMulti('leftToRight')">SlideIn (left)</a>
 			<a href="javascript:slideOutPartialMulti('rightToLeft')">SlideOut (right)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleInPartialMulti('leftToRight')">ToppleIn (left)</a>
+			<a href="javascript:toppleOutPartialMulti('rightToLeft')">ToppleOut (right)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInPartialMulti('topToBottom')">SlideIn (top)</a>
+			<a href="javascript:slideOutPartialMulti('bottomToTop')">SlideOut (bottom)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelayPartialMulti('topToBottom')">SlideIn (Delay) (top)</a>
+			<a href="javascript:slideOutDelayPartialMulti('bottomToTop')">SlideOut (Delay) (bottom)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleInPartialMulti('topToBottom')">ToppleIn (top)</a>
+			<a href="javascript:toppleOutPartialMulti('bottomToTop')">ToppleOut (bottom)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInPartialMulti('bottomToTop')">SlideIn (bottom)</a>
+			<a href="javascript:slideOutPartialMulti('topToBottom')">SlideOut (top)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelayPartialMulti('bottomToTop')">SlideIn (Delay) (bottom)</a>
+			<a href="javascript:slideOutDelayPartialMulti('topToBottom')">SlideOut (Delay) (top)</a>
+		</p>
+		<p>
+			<a href="javascript:toppleInPartialMulti('bottomToTop')">ToppleIn (bottom)</a>
+			<a href="javascript:toppleOutPartialMulti('topToBottom')">ToppleOut (top)</a>
 		</p>
 	</div>
 </body>
