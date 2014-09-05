@@ -84,7 +84,9 @@
 
                             // animation
                             if (af_panel.position != 0) {
+                                //partial
                                 if (af_panel.z == 0) {
+                                    //pasive
                                     tWidth = instance.$wrap.width();
                                     tLeft = 0;
                                     af_panel.$el.animate({
@@ -92,12 +94,22 @@
                                         left: tLeft
                                     }, af_panel.duration);
                                 } else {
-                                    tLeft = instance.$wrap.width() - af_panel.position;
-                                    af_panel.$el.animate({
-                                      left: tLeft
-                                    }, af_panel.duration);
+                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                        //intermediate
+                                        tLeft = instance.$wrap.width() - af_panel.position;
+                                        af_panel.$el.animate({
+                                          left: tLeft
+                                        }, af_panel.duration);
+                                    } else {
+                                        //leading
+                                        tLeft = instance.$wrap.width() - af_panel.position;
+                                        af_panel.$el.animate({
+                                          left: tLeft
+                                        }, af_panel.duration);
+                                    }
                                 }
                             } else {
+                                //full
                                 tLeft = 0;
                                 af_panel.$el.animate({
                                   left: tLeft
@@ -197,13 +209,14 @@
                                 } else {
                                     //active
                                     tTop = 0;
-                                    tLeft = -af_panel.position;
                                     tHeight = instance.$wrap.height();
                                     if (af_panel.width != "undefined" && af_panel.width > 0) {
                                         //intermediate
-                                        tWidth = af_panel.position - af_panel.width;
+                                        tLeft = -af_panel.width;
+                                        tWidth = af_panel.width;
                                     } else {
                                         //leading
+                                        tLeft = -af_panel.position;
                                         tWidth = af_panel.position;
                                     }
                                 }
@@ -223,20 +236,32 @@
                                 .width(tWidth);
 
                             // animation
-
                             if (af_panel.position != 0) {
+                                //partial
                                 if (af_panel.z == 0) {
+                                    //pasive
                                     tWidth = instance.$wrap.width();
                                     af_panel.$el.animate({
                                       width: tWidth
-                                    }, af_panel.duration);                                    
+                                    }, af_panel.duration);                           
                                 } else {
-                                    tLeft = 0;
-                                    af_panel.$el.animate({
-                                      left: tLeft
-                                    }, af_panel.duration);                                    
+                                    //active
+                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                        //intermediate
+                                        tLeft = af_panel.position - af_panel.width;
+                                        af_panel.$el.animate({
+                                          left: tLeft
+                                        }, af_panel.duration);
+                                    } else {
+                                        //leading
+                                        tLeft = 0;
+                                        af_panel.$el.animate({
+                                          left: tLeft
+                                        }, af_panel.duration);
+                                    }
                                 }
                             } else {
+                                //full
                                 tLeft = 0;
                                 af_panel.$el.animate({
                                   left: tLeft
@@ -264,7 +289,7 @@
                                     tHeight = instance.$wrap.height();
                                     if (af_panel.width != "undefined" && af_panel.width > 0) {
                                         //intermediate
-                                        tWidth = af_panel.position - af_panel.width;
+                                        tWidth = af_panel.width;
                                     } else {
                                         //leading
                                         tWidth = af_panel.position;
@@ -287,19 +312,31 @@
 
                             // animation
                             if (af_panel.position != 0) {
-                              if (af_panel.z == 0) {
-                                tWidth = instance.$wrap.width() + af_panel.position;
-                                tLeft = -af_panel.position;
-                                af_panel.$el.animate({
-                                  width: tWidth,
-                                  left: tLeft
-                                }, af_panel.duration);
-                              } else {
-                                tLeft = instance.$wrap.width();
-                                af_panel.$el.animate({
-                                  left: tLeft
-                                }, af_panel.duration);
-                              }
+                                //partial
+                                if (af_panel.z == 0) {
+                                    //pasive
+                                    tWidth = instance.$wrap.width() + af_panel.position;
+                                    tLeft = -af_panel.position;
+                                    af_panel.$el.animate({
+                                      width: tWidth,
+                                      left: tLeft
+                                    }, af_panel.duration);
+                                } else {
+                                    //active
+                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                        //intermediate
+                                        tLeft = instance.$wrap.width();
+                                        af_panel.$el.animate({
+                                          left: tLeft
+                                        }, af_panel.duration);
+                                    } else {
+                                        //leading
+                                        tLeft = instance.$wrap.width();
+                                        af_panel.$el.animate({
+                                          left: tLeft
+                                        }, af_panel.duration);
+                                    }
+                                }
                             } else {
                                 tLeft = instance.$wrap.width();
                                 af_panel.$el.animate({

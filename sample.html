@@ -530,25 +530,35 @@
 		}
 		function slideInDelayPartialMulti(mode) {
 			options = {
-				instance: "C-D",
+				instance: "E-F-G",
 				panels: [
 					{
-						$el: $("#panelC"),
+						$el: $("#panelE"),
 						type: "slide",
 						mode: mode,
 						direction: "out",
 						duration: 900,
-						position: -80,
+						position: -150,
 						z: 0
 					},
 					{
-						$el: $("#panelD"),
+						$el: $("#panelF"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 700,
+						width: 60,
+						position: 150,
+						z: 1
+					},
+					{
+						$el: $("#panelG"),
 						type: "slide",
 						mode: mode,
 						direction: "in",
 						duration: 500,
-						position: 80,
-						z: 1
+						position: 90,
+						z: 2
 					}
 				]
 			};
@@ -556,25 +566,35 @@
 		}
 		function slideOutDelayPartialMulti(mode) {
 			options = {
-				instance: "C-D",
+				instance: "E-F-G",
 				panels: [
 					{
-						$el: $("#panelC"),
+						$el: $("#panelE"),
 						type: "slide",
 						mode: mode,
 						direction: "in",
 						duration: 500,
-						position: -80,
+						position: -150,
 						z: 0
 					},
 					{
-						$el: $("#panelD"),
+						$el: $("#panelF"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 700,
+						width: 60,
+						position: 150,
+						z: 1
+					},
+					{
+						$el: $("#panelG"),
 						type: "slide",
 						mode: mode,
 						direction: "out",
 						duration: 900,
-						position: 80,
-						z: 1
+						position: 90,
+						z: 2
 					}
 				]
 			};
@@ -582,10 +602,10 @@
 		}
 		function toppleInPartialMulti(mode) {
 			options = {
-				instance: "C-D",
+				instance: "E-F-G",
 				panels: [
 					{
-						$el: $("#panelC"),
+						$el: $("#panelE"),
 						type: "",
 						mode: "",
 						direction: "out",
@@ -594,13 +614,23 @@
 						z: 0
 					},
 					{
-						$el: $("#panelD"),
+						$el: $("#panelF"),
 						type: "slide",
 						mode: mode,
 						direction: "in",
 						duration: 500,
-						position: 80,
+						width: 60,
+						position: 150,
 						z: 1
+					},
+					{
+						$el: $("#panelG"),
+						type: "slide",
+						mode: mode,
+						direction: "in",
+						duration: 500,
+						position: 90,
+						z: 2
 					}
 				]
 			};
@@ -608,10 +638,10 @@
 		}
 		function toppleOutPartialMulti(mode) {
 			options = {
-				instance: "C-D",
+				instance: "E-F-G",
 				panels: [
 					{
-						$el: $("#panelC"),
+						$el: $("#panelE"),
 						type: "",
 						mode: "",
 						direction: "in",
@@ -620,13 +650,23 @@
 						z: 0
 					},
 					{
-						$el: $("#panelD"),
+						$el: $("#panelF"),
 						type: "slide",
 						mode: mode,
 						direction: "out",
 						duration: 500,
-						position: 80,
+						width: 60,
+						position: 150,
 						z: 1
+					},
+					{
+						$el: $("#panelG"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: 90,
+						z: 2
 					}
 				]
 			};
@@ -655,6 +695,10 @@
 		<p>
 			<a href="javascript:slideInPartialMulti('leftToRight')">SlideIn (left)</a>
 			<a href="javascript:slideOutPartialMulti('rightToLeft')">SlideOut (right)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInDelayPartialMulti('leftToRight')">SlideIn (Delay) (left)</a>
+			<a href="javascript:slideOutDelayPartialMulti('rightToLeft')">SlideOut (Delay) (right)</a>
 		</p>
 		<p>
 			<a href="javascript:toppleInPartialMulti('leftToRight')">ToppleIn (left)</a>
