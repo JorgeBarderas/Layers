@@ -466,16 +466,17 @@
 						mode: mode,
 						direction: "out",
 						duration: 500,
-						position: -80,
+						position: -150,
 						z: 0
 					},
 					{
 						$el: $("#panelF"),
 						type: "slide",
 						mode: mode,
-						direction: "out",
+						direction: "in",
 						duration: 500,
-						position: -80,
+						position: 150,
+						width: 60,
 						z: 1
 					},
 					{
@@ -484,7 +485,7 @@
 						mode: mode,
 						direction: "in",
 						duration: 500,
-						position: 80,
+						position: 90,
 						z: 2
 					}
 				]
@@ -501,7 +502,7 @@
 						mode: mode,
 						direction: "in",
 						duration: 500,
-						position: -80,
+						position: -150,
 						z: 0
 					},
 					{
@@ -510,8 +511,18 @@
 						mode: mode,
 						direction: "out",
 						duration: 500,
-						position: 80,
+						position: 150,
+						width: 60,
 						z: 1
+					},
+					{
+						$el: $("#panelG"),
+						type: "slide",
+						mode: mode,
+						direction: "out",
+						duration: 500,
+						position: 90,
+						z: 2
 					}
 				]
 			};
@@ -526,8 +537,12 @@
 	</div>
 	<div style="float: left;">
 		<p>
-			<a href="javascript:slideInPartial('rightToLeft')">SlideIn (right)</a>
-			<a href="javascript:slideOutPartial('leftToRight')">SlideOut (left)</a>
+			<a href="javascript:slideInPartialMulti('rightToLeft')">SlideIn (right)</a>
+			<a href="javascript:slideOutPartialMulti('leftToRight')">SlideOut (left)</a>
+		</p>
+		<p>
+			<a href="javascript:slideInPartialMulti('leftToRight')">SlideIn (left)</a>
+			<a href="javascript:slideOutPartialMulti('rightToLeft')">SlideOut (right)</a>
 		</p>
 	</div>
 </body>

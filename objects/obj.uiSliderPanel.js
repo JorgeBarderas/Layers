@@ -41,16 +41,40 @@
                       case "rightToLeft":
                         switch (af_panel.direction) {
                           case "in":
-                            var tWidth = 0;
+                            var tTop = 0;
                             var tLeft = 0;
-                            if (af_panel.z == 0) {
-                                tWidth = (af_panel.position != 0) ? instance.$wrap.width() + af_panel.position : instance.$wrap.width();
-                                tLeft = (af_panel.position != 0) ? -af_panel.position : instance.$wrap.width();                             
+                            var tHeight = 0;
+                            var tWidth = 0;
+                            if (af_panel.position != 0) {
+                                //partial
+                                if (af_panel.z == 0) {
+                                    //pasive
+                                    tTop = 0;
+                                    tLeft = -af_panel.position;
+                                    tHeight = instance.$wrap.height();
+                                    tWidth = instance.$wrap.width() + af_panel.position;
+                                } else {
+                                    //active
+                                    tTop = 0;
+                                    tLeft = instance.$wrap.width();
+                                    tHeight = instance.$wrap.height();
+                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                        //intermediate
+                                        tWidth = af_panel.width;
+                                    } else {
+                                        //leading
+                                        tWidth = af_panel.position;
+                                    }
+                                }
                             } else {
-                                tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
-                                tLeft = instance.$wrap.width();                                
+                                //full
+                                tTop = 0;
+                                tLeft = instance.$wrap.width();
+                                tHeight = instance.$wrap.height();
+                                tWidth = instance.$wrap.width();
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
+
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("top", "0px")
@@ -79,17 +103,39 @@
                                   left: tLeft
                                 }, af_panel.duration);
                             }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
                             break;
                           case "out":
-                            if (af_panel.z == 0) {
-                                tWidth = instance.$wrap.width();
-                                tLeft = 0;                                
+                            if (af_panel.position != 0) {
+                                //partial
+                                if (af_panel.z == 0) {
+                                    //pasive
+                                    tTop = 0;
+                                    tLeft = 0;
+                                    tHeight = instance.$wrap.height();
+                                    tWidth = instance.$wrap.width();
+                                } else {
+                                    //active
+                                    tTop = 0;
+                                    tHeight = instance.$wrap.height();
+                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                        //intermediate
+                                        tLeft = af_panel.position - af_panel.width;
+                                        tWidth = af_panel.width;
+                                    } else {
+                                        //leading
+                                        tLeft = 0;
+                                        tWidth = af_panel.position;
+                                    }
+                                }
                             } else {
-                                tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
-                                tLeft = 0;                                
+                                //full
+                                tTop = 0;
+                                tLeft = 0;
+                                tHeight = instance.$wrap.height();
+                                tWidth = instance.$wrap.width();
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("top", "0px")
@@ -99,21 +145,37 @@
 
                             // animation
                             if (af_panel.position != 0) {
+                                //partial
                                 if (af_panel.z == 0) {
+                                    //pasive
+                                    tWidth = instance.$wrap.width() + af_panel.position;
                                     af_panel.$el.animate({
-                                      width: instance.$wrap.width() + af_panel.position
+                                      width: tWidth
                                     }, af_panel.duration);
                                 } else {
-                                    af_panel.$el.animate({
-                                      left: -af_panel.position
-                                    }, af_panel.duration);
+                                    //active
+                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                        //intermediate
+                                        tLeft = -af_panel.width;
+                                        af_panel.$el.animate({
+                                          left: tLeft
+                                        }, af_panel.duration);
+                                    } else {
+                                        //leading
+                                        tLeft = -af_panel.position;
+                                        af_panel.$el.animate({
+                                          left: tLeft
+                                        }, af_panel.duration);
+                                    }
                                 }
                             } else {
+                                //full
+                                tLeft = -instance.$wrap.width();
                                 af_panel.$el.animate({
-                                  left: -instance.$wrap.width()
+                                  left: tLeft
                                 }, af_panel.duration);
                             }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
                             break;
                         }
                         break;
@@ -129,7 +191,7 @@
                                 tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
                                 tLeft = (af_panel.position != 0) ? -af_panel.position : -instance.$wrap.width();                                
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             af_panel.$el
                                 .css("position", "absolute")
                                 .css("top", "0px")
@@ -157,7 +219,7 @@
                                   left: tLeft
                                 }, af_panel.duration);
                             }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             break;
                           case "out":
                             var tWidth = 0;
@@ -169,7 +231,7 @@
                               tWidth = (af_panel.position != 0) ? af_panel.position : instance.$wrap.width();
                               tLeft = (af_panel.position != 0) ? instance.$wrap.width() - af_panel.position : 0;
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("top", "0px")
@@ -198,7 +260,7 @@
                                     left: tLeft
                                 }, af_panel.duration);
                             }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "left:"+tLeft+";width:"+tWidth);
                             break;
                         }
                         break;
@@ -214,7 +276,7 @@
                                 tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
                                 tTop = (af_panel.position != 0) ? -af_panel.position : -instance.$wrap.height();                                
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("left", "0px")
@@ -241,7 +303,7 @@
                                     top: tTop
                                 }, af_panel.duration);
                             }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             break;
                           case "out":
                             var tHeight = 0;
@@ -253,7 +315,7 @@
                                 tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
                                 tTop = (af_panel.position != 0) ? instance.$wrap.height() -af_panel.position : 0;                                
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
 
                             af_panel.$el
                               .css("position", "absolute")
@@ -283,7 +345,7 @@
                                 top: tTop
                               }, af_panel.duration);
                             }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             break;
                         }
                         break;
@@ -299,7 +361,7 @@
                                 tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
                                 tTop = (af_panel.position != 0) ? instance.$wrap.height() : instance.$wrap.height();                                
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("left", "0px")
@@ -328,7 +390,7 @@
                                 top: tTop
                               }, af_panel.duration);
                             }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             break;
                           case "out":
                             var tHeight = 0;
@@ -340,7 +402,7 @@
                                 tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
                                 tTop = (af_panel.position != 0) ? 0 : 0;                                
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
                             af_panel.$el
                               .css("position", "absolute")
                               .css("top", tTop+"px")
@@ -369,7 +431,7 @@
                                 top: tTop
                               }, af_panel.duration);
                             }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";height:"+tHeight);
 
                             break;
                         }
