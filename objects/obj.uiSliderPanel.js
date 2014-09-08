@@ -45,322 +45,321 @@
                             eHeight = 0,
                             iWidth = 0,
                             eWidth = 0;
-                    switch (af_panel.mode) {
-                      case "rightToLeft":
-                        switch (af_panel.direction) {
-                          case "in":
-                            if (af_panel.position != 0) {
-                                //partial
-                                if (af_panel.z == 0) {
-                                    //pasive
-                                    iTop = eTop = 0;
-                                    iLeft = -af_panel.position;
-                                    eLeft = 0;
-                                    iHeight = eHeight = instance.$wrap.height();
-                                    iWidth = instance.$wrap.width() + af_panel.position;
-                                    eWidth = instance.$wrap.width();
-                                } else {
-                                    //active
-                                    iTop = eTop = 0;
-                                    iHeight = eHeight = instance.$wrap.height();
-                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
-                                        //intermediate
-                                        iLeft = instance.$wrap.width();
-                                        eLeft = instance.$wrap.width() - af_panel.position;
-                                        iWidth = eWidth = af_panel.width;
+                        switch (af_panel.mode) {
+                          case "rightToLeft":
+                            switch (af_panel.direction) {
+                                case "in":
+                                    if (af_panel.position != 0) {
+                                        //partial
+                                        if (af_panel.z == 0) {
+                                            //pasive
+                                            iTop = eTop = 0;
+                                            iLeft = -af_panel.position;
+                                            eLeft = 0;
+                                            iHeight = eHeight = instance.$wrap.height();
+                                            iWidth = instance.$wrap.width() + af_panel.position;
+                                            eWidth = instance.$wrap.width();
+                                        } else {
+                                            //active
+                                            iTop = eTop = 0;
+                                            iHeight = eHeight = instance.$wrap.height();
+                                            if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                                //intermediate
+                                                iLeft = instance.$wrap.width();
+                                                eLeft = instance.$wrap.width() - af_panel.position;
+                                                iWidth = eWidth = af_panel.width;
+                                            } else {
+                                                //leading
+                                                iLeft = instance.$wrap.width();
+                                                eLeft = instance.$wrap.width() - af_panel.position;
+                                                iWidth = eWidth = af_panel.position;
+                                            }
+                                        }
                                     } else {
-                                        //leading
+                                        //full
+                                        iTop = eTop = 0;
                                         iLeft = instance.$wrap.width();
-                                        eLeft = instance.$wrap.width() - af_panel.position;
-                                        iWidth = eWidth = af_panel.position;
+                                        eLeft = 0;
+                                        iHeight = eHeight = instance.$wrap.height();
+                                        iWidth = eWidth = instance.$wrap.width();
                                     }
-                                }
-                            } else {
-                                //full
-                                iTop = eTop = 0;
-                                iLeft = instance.$wrap.width();
-                                eLeft = 0;
-                                iHeight = eHeight = instance.$wrap.height();
-                                iWidth = eWidth = instance.$wrap.width();
-                            }
-                            break;
-                          case "out":
-                                if (af_panel.position != 0) {
-                                    //partial
-                                    if (af_panel.z == 0) {
-                                        //pasive
+                                    break;
+                                case "out":
+                                    if (af_panel.position != 0) {
+                                        //partial
+                                        if (af_panel.z == 0) {
+                                            //pasive
+                                            iTop = eTop = 0;
+                                            iLeft = 0;
+                                            eLeft = 0;
+                                            iHeight = eHeight = instance.$wrap.height();
+                                            iWidth = instance.$wrap.width();
+                                            eWidth = instance.$wrap.width() +af_panel.position;
+                                        } else {
+                                            //active
+                                            iTop = eTop = 0;
+                                            iHeight = eHeight = instance.$wrap.height();
+                                            if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                                //intermediate
+                                                iLeft = af_panel.position - af_panel.width;
+                                                eLeft = -af_panel.width;
+                                                iWidth = eWidth = af_panel.width;
+                                            } else {
+                                                //leading
+                                                iLeft = 0;
+                                                eLeft = -af_panel.position;
+                                                iWidth = eWidth = af_panel.position; 
+                                            }
+                                        }
+                                    } else {
+                                        //full
                                         iTop = eTop = 0;
                                         iLeft = 0;
+                                        eLeft = -instance.$wrap.width();
+                                        iHeight = eHeight = instance.$wrap.height();
+                                        iWidth = eWidth = instance.$wrap.width();
+                                        if (af_panel.z == 0 && af_panel.modal) {
+                                            console.log("modal");
+                                        }
+                                    }
+                                    break;
+                            }
+                            break;
+                        case "leftToRight":
+                            switch (af_panel.direction) {
+                                case "in":
+                                    if (af_panel.position != 0) {
+                                        //partial
+                                        if (af_panel.z == 0) {
+                                            //pasive
+                                            iTop = eTop = 0;
+                                            iLeft = 0;
+                                            eLeft = 0;
+                                            iHeight = eHeight = instance.$wrap.height();
+                                            iWidth = instance.$wrap.width() + af_panel.position;
+                                            eWidth = instance.$wrap.width();
+                                        } else {
+                                            //active
+                                            iTop = eTop = 0;
+                                            iHeight = eHeight = instance.$wrap.height();
+                                            if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                                //intermediate
+                                                iLeft = -af_panel.width;
+                                                eLeft = af_panel.position - af_panel.width;
+                                                iWidth = eWidth = af_panel.width;
+                                            } else {
+                                                //leading
+                                                iLeft = -af_panel.position;
+                                                eLeft = 0;
+                                                iWidth = eWidth = af_panel.position;
+                                            }
+                                        }
+                                    } else {
+                                        //full
+                                        iTop = eTop = 0;
+                                        iLeft = -instance.$wrap.width();
                                         eLeft = 0;
                                         iHeight = eHeight = instance.$wrap.height();
-                                        iWidth = instance.$wrap.width();
-                                        eWidth = instance.$wrap.width() +af_panel.position;
-                                    } else {
-                                        //active
-                                        iTop = eTop = 0;
-                                        iHeight = eHeight = instance.$wrap.height();
-                                        if (af_panel.width != "undefined" && af_panel.width > 0) {
-                                            //intermediate
-                                            iLeft = af_panel.position - af_panel.width;
-                                            eLeft = -af_panel.width;
-                                            iWidth = eWidth = af_panel.width;
-                                        } else {
-                                            //leading
+                                        iWidth = eWidth = instance.$wrap.width();
+                                    }
+                                    break;
+                                case "out":
+                                    if (af_panel.position != 0) {
+                                        //partial
+                                        if (af_panel.z == 0) {
+                                            //pasive
+                                            iTop = eTop = 0;
                                             iLeft = 0;
                                             eLeft = -af_panel.position;
-                                            iWidth = eWidth = af_panel.position; 
-                                        }
-                                    }
-                                } else {
-                                    //full
-                                    iTop = eTop = 0;
-                                    iLeft = 0;
-                                    eLeft = -instance.$wrap.width();
-                                    iHeight = eHeight = instance.$wrap.height();
-                                    iWidth = eWidth = instance.$wrap.width();
-                                }
-                            break;
-                        }
-                        break;
-                      case "leftToRight":
-                        switch (af_panel.direction) {
-                          case "in":
-                            if (af_panel.position != 0) {
-                                //partial
-                                if (af_panel.z == 0) {
-                                    //pasive
-                                    iTop = eTop = 0;
-                                    iLeft = 0;
-                                    eLeft = 0;
-                                    iHeight = eHeight = instance.$wrap.height();
-                                    iWidth = instance.$wrap.width() + af_panel.position;
-                                    eWidth = instance.$wrap.width();
-                                } else {
-                                    //active
-                                    iTop = eTop = 0;
-                                    iHeight = eHeight = instance.$wrap.height();
-                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
-                                        //intermediate
-                                        iLeft = -af_panel.width;
-                                        eLeft = af_panel.position - af_panel.width;
-                                        iWidth = eWidth = af_panel.width;
-                                    } else {
-                                        //leading
-                                        iLeft = -af_panel.position;
-                                        eLeft = 0;
-                                        iWidth = eWidth = af_panel.position;
-                                    }
-                                }
-                            } else {
-                                //full
-                                iTop = eTop = 0;
-                                iLeft = -instance.$wrap.width();
-                                eLeft = 0;
-                                iHeight = eHeight = instance.$wrap.height();
-                                iWidth = eWidth = instance.$wrap.width();
-                            }
-                            break;
-                          case "out":
-                            if (af_panel.position != 0) {
-                                //partial
-                                if (af_panel.z == 0) {
-                                    //pasive
-                                    iTop = eTop = 0;
-                                    iLeft = 0;
-                                    eLeft = -af_panel.position;
-                                    iHeight = eHeight = instance.$wrap.height();
-                                    iWidth = instance.$wrap.width();
-                                    eWidth = instance.$wrap.width() + af_panel.position;
-                                } else {
-                                    //active
-                                    iTop = eTop = 0;
-                                    iHeight = eHeight = instance.$wrap.height();
-                                    iLeft = instance.$wrap.width() - af_panel.position;
-                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
-                                        //intermediate
-                                        eLeft = instance.$wrap.width();
-                                        iWidth = eWidth = af_panel.width;
-                                    } else {
-                                        //leading
-                                        eLeft = instance.$wrap.width();
-                                        iWidth = eWidth = af_panel.position;
-                                    }
-                                }
-                            } else {
-                                //full
-                                iTop = eTop = 0;
-                                iLeft = 0;
-                                eLeft = instance.$wrap.width();
-                                iHeight = eHeight = instance.$wrap.height();
-                                iWidth = eWidth = instance.$wrap.width();
-                            }
-                            break;
-                        }
-                        break;
-                      case "topToBottom":
-                        switch (af_panel.direction) {
-                          case "in":
-                              try {
-                                if (af_panel.position != 0) {
-                                    //partial
-                                    if (af_panel.z == 0) {
-                                        //pasive
-                                        iTop = eTop = 0;
-                                        iLeft = eLeft = 0;
-                                        iHeight = instance.$wrap.height() + af_panel.position;
-                                        eHeight = instance.$wrap.height();
-                                        iWidth = eWidth = instance.$wrap.width();
-                                    } else {
-                                        //active
-                                        iLeft = eLeft = 0;
-                                        iWidth = eWidth = instance.$wrap.width();
-                                        if (af_panel.width != "undefined" && af_panel.width > 0) {
-                                            //intermediate
-                                            iTop = -af_panel.width;
-                                            eTop = af_panel.position -af_panel.width;
-                                            iHeight = eHeight = af_panel.width;
+                                            iHeight = eHeight = instance.$wrap.height();
+                                            iWidth = instance.$wrap.width();
+                                            eWidth = instance.$wrap.width() + af_panel.position;
                                         } else {
-                                            //leading
+                                            //active
+                                            iTop = eTop = 0;
+                                            iHeight = eHeight = instance.$wrap.height();
+                                            iLeft = instance.$wrap.width() - af_panel.position;
+                                            if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                                //intermediate
+                                                eLeft = instance.$wrap.width();
+                                                iWidth = eWidth = af_panel.width;
+                                            } else {
+                                                //leading
+                                                eLeft = instance.$wrap.width();
+                                                iWidth = eWidth = af_panel.position;
+                                            }
+                                        }
+                                    } else {
+                                        //full
+                                        iTop = eTop = 0;
+                                        iLeft = 0;
+                                        eLeft = instance.$wrap.width();
+                                        iHeight = eHeight = instance.$wrap.height();
+                                        iWidth = eWidth = instance.$wrap.width();
+                                    }
+                                    break;
+                            }
+                            break;
+                        case "topToBottom":
+                            switch (af_panel.direction) {
+                                case "in":
+                                    try {
+                                        if (af_panel.position != 0) {
+                                            //partial
+                                            if (af_panel.z == 0) {
+                                                //pasive
+                                                iTop = eTop = 0;
+                                                iLeft = eLeft = 0;
+                                                iHeight = instance.$wrap.height() + af_panel.position;
+                                                eHeight = instance.$wrap.height();
+                                                iWidth = eWidth = instance.$wrap.width();
+                                            } else {
+                                                //active
+                                                iLeft = eLeft = 0;
+                                                iWidth = eWidth = instance.$wrap.width();
+                                                if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                                    //intermediate
+                                                    iTop = -af_panel.width;
+                                                    eTop = af_panel.position -af_panel.width;
+                                                    iHeight = eHeight = af_panel.width;
+                                                } else {
+                                                    //leading
+                                                    iTop = -af_panel.position;
+                                                    eTop = 0;
+                                                    iHeight = eHeight = af_panel.position;
+                                                }
+                                            }
+                                        } else {
+                                            //full
+                                            iTop = -instance.$wrap.height();
+                                            eTop = 0;
+                                            iLeft = eLeft = 0;
+                                            iHeight = eHeight = instance.$wrap.height();
+                                            iWidth = eWidth = instance.$wrap.width();
+                                        }
+                                    } catch (error) {
+                                        _writeLog('error', af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), err, err.description);
+                                    }
+                                    break;
+                                case "out":
+                                    if (af_panel.position != 0) {
+                                        //partial
+                                        if (af_panel.z == 0) {
+                                            //pasive
+                                            iTop = 0;
+                                            eTop = -af_panel.position;
+                                            iLeft = eLeft = 0;
+                                            iHeight = instance.$wrap.height();
+                                            eHeight = instance.$wrap.height() + af_panel.position;
+                                            iWidth = eWidth = instance.$wrap.width();
+                                        } else {
+                                            //active
+                                            iLeft = eLeft = 0;
+                                            iWidth = eWidth = instance.$wrap.width();
+                                            if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                                //intermediate
+                                                iTop = instance.$wrap.height() - af_panel.position;
+                                                eTop = instance.$wrap.height();
+                                                iHeight = eHeight = af_panel.width;
+                                            } else {
+                                                //leading
+                                                iTop = instance.$wrap.height() -af_panel.position;
+                                                eTop = instance.$wrap.height();
+                                                iHeight = eHeight = af_panel.position;
+                                            }
+                                        }
+                                    } else {
+                                        //full
+                                        iTop = 0;
+                                        eTop = instance.$wrap.height();
+                                        iLeft = eLeft = 0;
+                                        iHeight = eHeight = instance.$wrap.height();
+                                        iWidth = eWidth = instance.$wrap.width();
+                                    }
+                                    break;
+                            }
+                            break;
+                        case "bottomToTop":
+                            switch (af_panel.direction) {
+                                case "in":
+                                    if (af_panel.position != 0) {
+                                        //partial
+                                        if (af_panel.z == 0) {
+                                            //pasive
                                             iTop = -af_panel.position;
                                             eTop = 0;
-                                            iHeight = eHeight = af_panel.position;
+                                            iLeft = eLeft = 0;
+                                            iHeight = instance.$wrap.height() + af_panel.position;
+                                            eHeight = instance.$wrap.height();
+                                            iWidth = eWidth = instance.$wrap.width();
+                                        } else {
+                                            //active
+                                            iLeft = eLeft = 0;
+                                            iWidth = eWidth = instance.$wrap.width();
+                                            if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                                //intermediate
+                                                iTop = instance.$wrap.height();
+                                                eTop = instance.$wrap.height() -af_panel.position;
+                                                iHeight = eHeight = af_panel.width;
+                                            } else {
+                                                //leading
+                                                iTop = instance.$wrap.height();
+                                                eTop = instance.$wrap.height() -af_panel.position;
+                                                iHeight = eHeight = af_panel.position;
+                                            }
                                         }
-                                    }
-                                } else {
-                                    //full
-                                    iTop = -instance.$wrap.height();
-                                    eTop = 0;
-                                    iLeft = eLeft = 0;
-                                    iHeight = eHeight = instance.$wrap.height();
-                                    iWidth = eWidth = instance.$wrap.width();
-                                }
-                            } catch (error) {
-                                _writeLog('error', af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), err, err.description);
-                            }
-                            break;
-                          case "out":
-                            if (af_panel.position != 0) {
-                                //partial
-                                if (af_panel.z == 0) {
-                                    //pasive
-                                    iTop = 0;
-                                    eTop = -af_panel.position;
-                                    iLeft = eLeft = 0;
-                                    iHeight = instance.$wrap.height();
-                                    eHeight = instance.$wrap.height() + af_panel.position;
-                                    iWidth = eWidth = instance.$wrap.width();
-                                } else {
-                                    //active
-                                    iLeft = eLeft = 0;
-                                    iWidth = eWidth = instance.$wrap.width();
-                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
-                                        //intermediate
-                                        iTop = instance.$wrap.height() - af_panel.position;
-                                        eTop = instance.$wrap.height();
-                                        iHeight = eHeight = af_panel.width;
                                     } else {
-                                        //leading
-                                        iTop = instance.$wrap.height() -af_panel.position;
-                                        eTop = instance.$wrap.height();
-                                        iHeight = eHeight = af_panel.position;
-                                    }
-                                }
-                            } else {
-                                //full
-                                iTop = 0;
-                                eTop = instance.$wrap.height();
-                                iLeft = eLeft = 0;
-                                iHeight = eHeight = instance.$wrap.height();
-                                iWidth = eWidth = instance.$wrap.width();
-                            }
-                            break;
-                        }
-                        break;
-                      case "bottomToTop":
-                        switch (af_panel.direction) {
-                          case "in":
-                            if (af_panel.position != 0) {
-                                //partial
-                                if (af_panel.z == 0) {
-                                    //pasive
-                                    iTop = -af_panel.position;
-                                    eTop = 0;
-                                    iLeft = eLeft = 0;
-                                    iHeight = instance.$wrap.height() + af_panel.position;
-                                    eHeight = instance.$wrap.height();
-                                    iWidth = eWidth = instance.$wrap.width();
-                                } else {
-                                    //active
-                                    iLeft = eLeft = 0;
-                                    iWidth = eWidth = instance.$wrap.width();
-                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
-                                        //intermediate
+                                        //full
                                         iTop = instance.$wrap.height();
-                                        eTop = instance.$wrap.height() -af_panel.position;
-                                        iHeight = eHeight = af_panel.width;
-                                    } else {
-                                        //leading
-                                        iTop = instance.$wrap.height();
-                                        eTop = instance.$wrap.height() -af_panel.position;
-                                        iHeight = eHeight = af_panel.position;
+                                        eTop = 0;
+                                        iLeft = eLeft = 0;
+                                        iHeight = eHeight = instance.$wrap.height();
+                                        iWidth = eWidth = instance.$wrap.width();
                                     }
-                                }
-                            } else {
-                                //full
-                                iTop = instance.$wrap.height();
-                                eTop = 0;
-                                iLeft = eLeft = 0;
-                                iHeight = eHeight = instance.$wrap.height();
-                                iWidth = eWidth = instance.$wrap.width();
-                            }
-                            break;
-                        case "out":
-                            if (af_panel.position != 0) {
-                                //partial
-                                if (af_panel.z == 0) {
-                                    //pasive
-                                    iTop = eTop = 0;
-                                    iLeft = eLeft = 0;
-                                    iHeight = instance.$wrap.height();
-                                    eHeight = instance.$wrap.height() + af_panel.position;
-                                    iWidth = eWidth = instance.$wrap.width();
-                                } else {
-                                    //active
-                                    iLeft = eLeft = 0;
-                                    iWidth = eWidth = instance.$wrap.width();
-                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
-                                        //intermediate
-                                        iTop = af_panel.position -af_panel.width;
-                                        eTop = -af_panel.width;
-                                        iHeight = eHeight = af_panel.width;
+                                    break;
+                                case "out":
+                                    if (af_panel.position != 0) {
+                                        //partial
+                                        if (af_panel.z == 0) {
+                                            //pasive
+                                            iTop = eTop = 0;
+                                            iLeft = eLeft = 0;
+                                            iHeight = instance.$wrap.height();
+                                            eHeight = instance.$wrap.height() + af_panel.position;
+                                            iWidth = eWidth = instance.$wrap.width();
+                                        } else {
+                                            //active
+                                            iLeft = eLeft = 0;
+                                            iWidth = eWidth = instance.$wrap.width();
+                                            if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                                //intermediate
+                                                iTop = af_panel.position -af_panel.width;
+                                                eTop = -af_panel.width;
+                                                iHeight = eHeight = af_panel.width;
+                                            } else {
+                                                //leading
+                                                iTop = 0;
+                                                eTop = -af_panel.position;
+                                                iHeight = eHeight = af_panel.position;
+                                            }
+                                        }
                                     } else {
-                                        //leading
+                                        //full
                                         iTop = 0;
-                                        eTop = -af_panel.position;
-                                        iHeight = eHeight = af_panel.position;
+                                        eTop = -instance.$wrap.height();
+                                        iLeft = eLeft = 0;
+                                        iHeight = eHeight = instance.$wrap.height();
+                                        iWidth = eWidth = instance.$wrap.width();
                                     }
-                                }
-                            } else {
-                                //full
-                                iTop = 0;
-                                eTop = -instance.$wrap.height();
-                                iLeft = eLeft = 0;
-                                iHeight = eHeight = instance.$wrap.height();
-                                iWidth = eWidth = instance.$wrap.width();
+                                    break;
                             }
                             break;
-                        }
-                        break;
-                    default:
-                        _writeLog('info', '_slidePanel', "X|"+af_panel.type+"|default|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:0;left:0;height:"+instance.$wrap.height()+";width:"+instance.$wrap.width());
-                        af_panel.$el
-                          .css("position", "absolute")
-                          .css("top", "0px")
-                          .css("left", "0px")
-                          .css("display", "block")
-                          .width(instance.$wrap.width())
-                          .height(instance.$wrap.height());
-                        break;
+                        default:
+                            iTop = eTop = 0;
+                            iLeft = eLeft = 0;
+                            iHeight = eHeight = instance.$wrap.height();
+                            iWidth = eWidth = instance.$wrap.width();
+                            break;
                     }
                     _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth);
                     _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+eTop+";left:"+eLeft+";height:"+eHeight+";width:"+eWidth);
