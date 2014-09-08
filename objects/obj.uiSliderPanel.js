@@ -41,81 +41,66 @@
                       case "rightToLeft":
                         switch (af_panel.direction) {
                           case "in":
-                            var tTop = 0;
-                            var tLeft = 0;
-                            var tHeight = 0;
-                            var tWidth = 0;
-                            if (af_panel.position != 0) {
-                                //partial
-                                if (af_panel.z == 0) {
-                                    //pasive
-                                    tTop = 0;
-                                    tLeft = -af_panel.position;
-                                    tHeight = instance.$wrap.height();
-                                    tWidth = instance.$wrap.width() + af_panel.position;
-                                } else {
-                                    //active
-                                    tTop = 0;
-                                    tLeft = instance.$wrap.width();
-                                    tHeight = instance.$wrap.height();
-                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
-                                        //intermediate
-                                        tWidth = af_panel.width;
+                                var iTop = 0,
+                                    eTop = 0,
+                                    iLeft = 0,
+                                    eLeft = 0,
+                                    iHeight = 0,
+                                    eHeight = 0,
+                                    iWidth = 0,
+                                    eWidth = 0;
+                                if (af_panel.position != 0) {
+                                    //partial
+                                    if (af_panel.z == 0) {
+                                        //pasive
+                                        iTop = eTop = 0;
+                                        iLeft = -af_panel.position;
+                                        eLeft = 0;
+                                        iHeight = eHeight = instance.$wrap.height();
+                                        iWidth = instance.$wrap.width() + af_panel.position;
+                                        ewidth = instance.$wrap.width();
                                     } else {
-                                        //leading
-                                        tWidth = af_panel.position;
+                                        //active
+                                        iTop = eTop = 0;
+                                        iHeight = eHeight = instance.$wrap.height();
+                                        if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                            //intermediate
+                                            iLeft = instance.$wrap.width();
+                                            eLeft = instance.$wrap.width() - af_panel.position;
+                                            iWidth = eWidth = af_panel.width;
+                                        } else {
+                                            //leading
+                                            iLeft = instance.$wrap.width();
+                                            eLeft = instance.$wrap.width() - af_panel.position;
+                                            iWidth = eWidth = af_panel.position;
+                                        }
                                     }
-                                }
-                            } else {
-                                //full
-                                tTop = 0;
-                                tLeft = instance.$wrap.width();
-                                tHeight = instance.$wrap.height();
-                                tWidth = instance.$wrap.width();
-                            }
-
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
-                            af_panel.$el
-                              .css("position", "absolute")
-                              .css("top", "0px")
-                              .css("left", tLeft+"px")
-                              .css("display", "block")
-                              .width(tWidth);
-
-                            // animation
-                            if (af_panel.position != 0) {
-                                //partial
-                                if (af_panel.z == 0) {
-                                    //pasive
-                                    tWidth = instance.$wrap.width();
-                                    tLeft = 0;
-                                    af_panel.$el.animate({
-                                        width: tWidth,
-                                        left: tLeft
-                                    }, af_panel.duration);
                                 } else {
-                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
-                                        //intermediate
-                                        tLeft = instance.$wrap.width() - af_panel.position;
-                                        af_panel.$el.animate({
-                                          left: tLeft
-                                        }, af_panel.duration);
-                                    } else {
-                                        //leading
-                                        tLeft = instance.$wrap.width() - af_panel.position;
-                                        af_panel.$el.animate({
-                                          left: tLeft
-                                        }, af_panel.duration);
-                                    }
+                                    //full
+                                    iTop = eTop = 0;
+                                    iLeft = instance.$wrap.width();
+                                    eLeft = 0;
+                                    iHeight = eHeight = instance.$wrap.height();
+                                    iWidth = eWidth = instance.$wrap.width();
                                 }
-                            } else {
-                                //full
-                                tLeft = 0;
+                                _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth);
+                                _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+eTop+";left:"+eLeft+";height:"+eHeight+";width:"+eWidth);
+                                //positioning
+                                af_panel.$el
+                                  .css("position", "absolute")
+                                  .css("top", iTop+"px")
+                                  .css("left", iLeft+"px")
+                                  .css("display", "block")
+                                  .height(iHeight)
+                                  .width(iWidth);
+
+                                // animation
                                 af_panel.$el.animate({
-                                  left: tLeft
+                                    top: eTop,
+                                    left: eLeft,
+                                    height: eHeight,
+                                    width: eWidth
                                 }, af_panel.duration);
-                            }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
                             break;
                           case "out":
                             if (af_panel.position != 0) {
@@ -350,171 +335,258 @@
                       case "topToBottom":
                         switch (af_panel.direction) {
                           case "in":
-                            var tHeight = 0;
-                            var tTop = 0;
-                            if (af_panel.z == 0) {
-                                tHeight = (af_panel.position != 0) ? instance.$wrap.height() + af_panel.position : instance.$wrap.height();
-                                tTop = (af_panel.position != 0) ? 0 : -instance.$wrap.height();                             
-                            } else {
-                                tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
-                                tTop = (af_panel.position != 0) ? -af_panel.position : -instance.$wrap.height();                                
-                            }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
-                            af_panel.$el
-                              .css("position", "absolute")
-                              .css("left", "0px")
-                              .css("top", tTop+"px")
-                              .css("display", "block")
-                              .height(tHeight);
+                              try {
+                                var iTop = 0,
+                                    eTop = 0,
+                                    iLeft = 0,
+                                    eLeft = 0,
+                                    iHeight = 0,
+                                    eHeight = 0,
+                                    iWidth = 0,
+                                    eWidth = 0;
+                                if (af_panel.position != 0) {
+                                    //partial
+                                    if (af_panel.z == 0) {
+                                        //pasive
+                                        iTop = eTop = 0;
+                                        iLeft = eLeft = 0;
+                                        iHeight = instance.$wrap.height() + af_panel.position;
+                                        eHeight = instance.$wrap.height();
+                                        iWidth = eWidth = instance.$wrap.width();
+                                    } else {
+                                        //active
+                                        iLeft = eLeft = 0;
+                                        iWidth = eWidth = instance.$wrap.width();
+                                        if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                            //intermediate
+                                            iTop = -af_panel.width;
+                                            eTop = af_panel.position -af_panel.width;
+                                            iHeight = eHeight = af_panel.width;
+                                        } else {
+                                            //leading
+                                            iTop = -af_panel.position;
+                                            eTop = 0;
+                                            iHeight = eHeight = af_panel.position;
+                                        }
+                                    }
+                                } else {
+                                    //full
+                                    iTop = -instance.$wrap.height();
+                                    eTop = 0;
+                                    iLeft = eLeft = 0;
+                                    iHeight = eHeight = instance.$wrap.height();
+                                    iWidth = eWidth = instance.$wrap.width();
+                                }
+                                _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth);
+                                _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+eTop+";left:"+eLeft+";height:"+eHeight+";width:"+eWidth);
+                                //positioning
+                                af_panel.$el
+                                  .css("position", "absolute")
+                                  .css("top", iTop+"px")
+                                  .css("left", iLeft+"px")
+                                  .css("display", "block")
+                                  .height(iHeight)
+                                  .width(iWidth);
 
-                            // animation
-                            if (af_panel.position != 0) {
-                              if (af_panel.z == 0) {
-                                tHeight = instance.$wrap.height();
+                                // animation
                                 af_panel.$el.animate({
-                                  height: tHeight
+                                    top: eTop,
+                                    left: eLeft,
+                                    height: eHeight,
+                                    width: eWidth
                                 }, af_panel.duration);
-                              } else {
-                                tTop = 0;
-                                af_panel.$el.animate({
-                                  top: tTop
-                                }, af_panel.duration);
-                              }
-                            } else {
-                                tTop = 0;
-                                af_panel.$el.animate({
-                                    top: tTop
-                                }, af_panel.duration);
+                            } catch (error) {
+                                _writeLog('error', af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), err, err.description);
                             }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
                             break;
                           case "out":
-                            var tHeight = 0;
-                            var tTop = 0;
-                            if (af_panel.z == 0) {
-                                tHeight = (af_panel.position != 0) ? instance.$wrap.height() : instance.$wrap.height();
-                                tTop = (af_panel.position != 0) ? 0 : 0;                             
+                            var iTop = 0,
+                                eTop = 0,
+                                iLeft = 0,
+                                eLeft = 0,
+                                iHeight = 0,
+                                eHeight = 0,
+                                iWidth = 0,
+                                eWidth = 0;
+                            if (af_panel.position != 0) {
+                                //partial
+                                if (af_panel.z == 0) {
+                                    //pasive
+                                    iTop = 0;
+                                    eTop = -af_panel.position;
+                                    iLeft = eLeft = 0;
+                                    iHeight = instance.$wrap.height();
+                                    eHeight = instance.$wrap.height() + af_panel.position;
+                                    iWidth = eWidth = instance.$wrap.width();
+                                } else {
+                                    //active
+                                    iLeft = eLeft = 0;
+                                    iWidth = eWidth = instance.$wrap.width();
+                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                        //intermediate
+                                        iTop = instance.$wrap.height() - af_panel.position;
+                                        eTop = instance.$wrap.height();
+                                        iHeight = eHeight = af_panel.width;
+                                    } else {
+                                        //leading
+                                        iTop = instance.$wrap.height() -af_panel.position;
+                                        eTop = instance.$wrap.height();
+                                        iHeight = eHeight = af_panel.position;
+                                    }
+                                }
                             } else {
-                                tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
-                                tTop = (af_panel.position != 0) ? instance.$wrap.height() -af_panel.position : 0;                                
+                                //full
+                                iTop = 0;
+                                eTop = instance.$wrap.height();
+                                iLeft = eLeft = 0;
+                                iHeight = eHeight = instance.$wrap.height();
+                                iWidth = eWidth = instance.$wrap.width();
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+eTop+";left:"+eLeft+";height:"+eHeight+";width:"+eWidth);
 
+                            //positioning
                             af_panel.$el
                               .css("position", "absolute")
-                              .css("top", tTop+"px")
-                              .css("left", "0px")
+                              .css("top", iTop+"px")
+                              .css("left", iLeft+"px")
                               .css("display", "block")
-                              .height(tHeight);
-
-                            // animation
-                            if (af_panel.position != 0) {
-                              if (af_panel.z == 0) {
-                                tTop = -af_panel.position;
-                                tHeight = instance.$wrap.height() + af_panel.position;
-                                af_panel.$el.animate({
-                                  height: tHeight,
-                                  top: tTop
-                                }, af_panel.duration);
-                              } else {
-                                tTop = instance.$wrap.height();
-                                af_panel.$el.animate({
-                                  top: tTop
-                                }, af_panel.duration);
-                              }
-                            } else {
-                              tTop = instance.$wrap.height();
-                              af_panel.$el.animate({
-                                top: tTop
-                              }, af_panel.duration);
-                            }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
+                              .height(iHeight)
+                              .width(iWidth);
+                            //animation
+                            af_panel.$el.animate({
+                                top: eTop,
+                                left: eLeft,
+                                height: eHeight,
+                                width: eWidth
+                            }, af_panel.duration);
                             break;
                         }
                         break;
                       case "bottomToTop":
                         switch (af_panel.direction) {
                           case "in":
-                            var tHeight = 0;
-                            var tTop = 0;
-                            if (af_panel.z == 0) {
-                                tHeight = (af_panel.position != 0) ? instance.$wrap.height() +af_panel.position : instance.$wrap.height();
-                                tTop = (af_panel.position != 0) ? -af_panel.position : instance.$wrap.height();                             
+                            var iTop = 0,
+                                eTop = 0,
+                                iLeft = 0,
+                                eLeft = 0,
+                                iHeight = 0,
+                                eHeight = 0,
+                                iWidth = 0,
+                                eWidth = 0;
+                            if (af_panel.position != 0) {
+                                //partial
+                                if (af_panel.z == 0) {
+                                    //pasive
+                                    iTop = -af_panel.position;
+                                    eTop = 0;
+                                    iLeft = eLeft = 0;
+                                    iHeight = instance.$wrap.height() + af_panel.position;
+                                    eHeight = instance.$wrap.height();
+                                    iWidth = eWidth = instance.$wrap.width();
+                                } else {
+                                    //active
+                                    iLeft = eLeft = 0;
+                                    iWidth = eWidth = instance.$wrap.width();
+                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                        //intermediate
+                                        iTop = instance.$wrap.height();
+                                        eTop = instance.$wrap.height() -af_panel.position;
+                                        iHeight = eHeight = af_panel.width;
+                                    } else {
+                                        //leading
+                                        iTop = instance.$wrap.height();
+                                        eTop = instance.$wrap.height() -af_panel.position;
+                                        iHeight = eHeight = af_panel.position;
+                                    }
+                                }
                             } else {
-                                tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
-                                tTop = (af_panel.position != 0) ? instance.$wrap.height() : instance.$wrap.height();                                
+                                //full
+                                iTop = instance.$wrap.height();
+                                eTop = 0;
+                                iLeft = eLeft = 0;
+                                iHeight = eHeight = instance.$wrap.height();
+                                iWidth = eWidth = instance.$wrap.width();
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+eTop+";left:"+eLeft+";height:"+eHeight+";width:"+eWidth);
+
+                            //positioning
                             af_panel.$el
                               .css("position", "absolute")
-                              .css("left", "0px")
-                              .css("top", tTop+"px")
+                              .css("top", iTop+"px")
+                              .css("left", iLeft+"px")
                               .css("display", "block")
-                              .height(tHeight);
-
-                            // animation
-                            if (af_panel.position != 0) {
-                              if (af_panel.z == 0) {
-                                tTop = 0;
-                                tHeight = instance.$wrap.height();
-                                af_panel.$el.animate({
-                                  height: tHeight,
-                                  top: tTop
-                                }, af_panel.duration);
-                              } else {
-                                tTop = instance.$wrap.height() -af_panel.position;
-                                af_panel.$el.animate({
-                                  top: tTop
-                                }, af_panel.duration);
-                              }
-                            } else {
-                              tTop = 0;
-                              af_panel.$el.animate({
-                                top: tTop
-                              }, af_panel.duration);
-                            }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
+                              .height(iHeight)
+                              .width(iWidth);
+                            //animation
+                            af_panel.$el.animate({
+                                top: eTop,
+                                left: eLeft,
+                                height: eHeight,
+                                width: eWidth
+                            }, af_panel.duration);
                             break;
-                          case "out":
-                            var tHeight = 0;
-                            var tTop = 0;
-                            if (af_panel.z == 0) {
-                                tHeight = (af_panel.position != 0) ? instance.$wrap.height() : instance.$wrap.height();
-                                tTop = (af_panel.position != 0) ? 0 : 0;                             
+                        case "out":
+                            var iTop = 0,
+                                eTop = 0,
+                                iLeft = 0,
+                                eLeft = 0,
+                                iHeight = 0,
+                                eHeight = 0,
+                                iWidth = 0,
+                                eWidth = 0;
+                            if (af_panel.position != 0) {
+                                //partial
+                                if (af_panel.z == 0) {
+                                    //pasive
+                                    iTop = eTop = 0;
+                                    iLeft = eLeft = 0;
+                                    iHeight = instance.$wrap.height();
+                                    eHeight = instance.$wrap.height() + af_panel.position;
+                                    iWidth = eWidth = instance.$wrap.width();
+                                } else {
+                                    //active
+                                    iLeft = eLeft = 0;
+                                    iWidth = eWidth = instance.$wrap.width();
+                                    if (af_panel.width != "undefined" && af_panel.width > 0) {
+                                        //intermediate
+                                        iTop = af_panel.position -af_panel.width;
+                                        eTop = -af_panel.width;
+                                        iHeight = eHeight = af_panel.width;
+                                    } else {
+                                        //leading
+                                        iTop = 0;
+                                        eTop = -af_panel.position;
+                                        iHeight = eHeight = af_panel.position;
+                                    }
+                                }
                             } else {
-                                tHeight = (af_panel.position != 0) ? af_panel.position : instance.$wrap.height();
-                                tTop = (af_panel.position != 0) ? 0 : 0;                                
+                                //full
+                                iTop = 0;
+                                eTop = -instance.$wrap.height();
+                                iLeft = eLeft = 0;
+                                iHeight = eHeight = instance.$wrap.height();
+                                iWidth = eWidth = instance.$wrap.width();
                             }
-                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
+                            _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth);
+                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+eTop+";left:"+eLeft+";height:"+eHeight+";width:"+eWidth);
+
+                            //positioning
                             af_panel.$el
                               .css("position", "absolute")
-                              .css("top", tTop+"px")
-                              .css("left", "0px")
+                              .css("top", iTop+"px")
+                              .css("left", iLeft+"px")
                               .css("display", "block")
-                              .height(tHeight);
-
-                            // animation
-                            if (af_panel.position != 0) {
-                              if (af_panel.z == 0) {
-                                tTop = 0;
-                                tHeight = instance.$wrap.height() + af_panel.position;
-                                af_panel.$el.animate({
-                                  height: tHeight,
-                                  top: tTop
-                                }, af_panel.duration);
-                              } else {
-                                tTop = -af_panel.position;
-                                af_panel.$el.animate({
-                                  top: tTop
-                                }, af_panel.duration);
-                              }
-                            } else {
-                              tTop = -instance.$wrap.height();
-                              af_panel.$el.animate({
-                                top: tTop
-                              }, af_panel.duration);
-                            }
-                            _writeLog('info', '_slidePanel', "END|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+tTop+";left:"+tLeft+";height:"+tHeight+";width:"+tWidth);
+                              .height(iHeight)
+                              .width(iWidth);
+                            //animation
+                            af_panel.$el.animate({
+                                top: eTop,
+                                left: eLeft,
+                                height: eHeight,
+                                width: eWidth
+                            }, af_panel.duration);
                             break;
                         }
                         break;
