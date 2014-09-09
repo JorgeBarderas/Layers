@@ -95,6 +95,9 @@
                                             iHeight = eHeight = instance.$wrap.height();
                                             iWidth = instance.$wrap.width();
                                             eWidth = instance.$wrap.width() +af_panel.position;
+                                            if (af_panel.modal) {
+                                                _addModalBk(instance.$wrap, af_panel);
+                                            }
                                         } else {
                                             //active
                                             iTop = eTop = 0;
@@ -119,7 +122,7 @@
                                         iHeight = eHeight = instance.$wrap.height();
                                         iWidth = eWidth = instance.$wrap.width();
                                         if (af_panel.z == 0 && af_panel.modal) {
-                                            console.log("modal");
+                                            _addModalBk(instance.$wrap, af_panel);
                                         }
                                     }
                                     break;
@@ -408,6 +411,21 @@
         }
         return inst;
     };
+    var _addModalBk = function ($a_wrap, a_panel) {
+        try {
+            var $bk = $("<div></div>");
+            $bk
+                .css("top", "0px")
+                .css("left", "0px")
+                .height($a_wrap.height())
+                .width($a_wrap.width())
+                .css("background-color", "blue");
+                a_panel.$el.after($bk);
+
+        } catch (err) {
+            _writeLog('error', '_addModalBk', err, err.description);
+        }
+    }
     var _writeLog = function (a_type, a_function, a_msg, a_info) {
         defaults.events.log('uiSliderPanel', a_type, a_function, a_msg, a_info);
     };
