@@ -141,6 +141,9 @@
                                             iHeight = eHeight = instance.$wrap.height();
                                             iWidth = instance.$wrap.width() + af_panel.position;
                                             eWidth = instance.$wrap.width();
+                                            if (af_panel.modal) {
+                                                _removeModalBk(instance.$wrap, af_panel);
+                                            }                                        
                                         } else {
                                             //active
                                             iTop = eTop = 0;
@@ -164,6 +167,9 @@
                                         eLeft = 0;
                                         iHeight = eHeight = instance.$wrap.height();
                                         iWidth = eWidth = instance.$wrap.width();
+                                        if (af_panel.modal) {
+                                            _removeModalBk(instance.$wrap, af_panel);
+                                        }                                        
                                     }
                                     break;
                                 case "out":
@@ -362,6 +368,11 @@
                             iLeft = eLeft = 0;
                             iHeight = eHeight = instance.$wrap.height();
                             iWidth = eWidth = instance.$wrap.width();
+                            if (af_panel.direction == "in" && af_panel.modal) {
+                                _removeModalBk(instance.$wrap, af_panel);
+                            } else if (af_panel.direction == "out" && af_panel.modal) {
+                                _addModalBk(instance.$wrap, af_panel);
+                            }
                             break;
                     }
                     _writeLog('info', '_slidePanel', "INI|"+af_panel.type+"|"+af_panel.mode+"|"+af_panel.direction+"|"+af_panel.z+"|"+instance.$wrap.width()+"x"+instance.$wrap.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth);
@@ -413,17 +424,49 @@
     };
     var _addModalBk = function ($a_wrap, a_panel) {
         try {
+            if (a_panel.duration == "undefined" || a_panel.duration == "") {a_panel.duration = 500;}
             var $bk = $("<div></div>");
             $bk
                 .css("top", "0px")
                 .css("left", "0px")
+                .css("opacity", "0")
+                .css("-webkit-filter", "blur(4px)")
+                .css("-moz-filter", "blur(4px)")
+                .css("-o-filter", "blur(4px)")
+                .css("-ms-filter", "blur(4px)")
+                .css("filter", "blur(4px)")
                 .height($a_wrap.height())
                 .width($a_wrap.width())
-                .css("background-color", "blue");
-                a_panel.$el.after($bk);
+                .addClass("bk-modal")
+                .animate({
+                    opacity: 0.8
+                }, a_panel.duration);
+            a_panel.$el
+                .after($bk)
+                .css("z-index", "-1");
+            _writeLog('info', '_addModalBk', "Add modal panel", "");
 
         } catch (err) {
             _writeLog('error', '_addModalBk', err, err.description);
+        }
+    }
+    var _removeModalBk = function ($a_wrap, a_panel) {
+        try {
+            if (a_panel.duration == "undefined" || a_panel.duration == "") {a_panel.duration = 500;}
+            var $bk = $a_wrap.children(".bk-modal");
+            $bk
+                .animate({
+                    opacity: 0
+                }, a_panel.duration, function() {
+                    $(this).remove();
+                });
+            a_panel.$el
+                .after($bk)
+                .css("z-index", "0");
+            _writeLog('info', '_removeModalBk', "Remove modal panel", "");
+
+        } catch (err) {
+            _writeLog('error', '_removeModalBk', err, err.description);
         }
     }
     var _writeLog = function (a_type, a_function, a_msg, a_info) {
