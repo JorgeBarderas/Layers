@@ -1,5 +1,6 @@
 //#region uiSliderPanel
 (function ($) {
+    var instances   = [];
     var defaults = {
             id: "mainSlider",
             panels: {},
@@ -540,32 +541,8 @@
     var _writeLog = function (a_type, a_function, a_msg, a_info) {
         defaults.events.log('uiSliderPanel', a_type, a_function, a_msg, a_info);
     };
-    // The Layer
-    var Layer = function(a_el, a_options) {
-        this.el       = a_el;
-        this.$el      = $(a_el);
-        // Register this instance
-        this.instanceNumber = instances.length;
-        defaults = jQuery.extend(true, defaults, a_options);
-        _writeLog('infoData', 'Constructor', 'Create the layer panel', a_options);
-        instances.push(this);
-        // Save the reference
-        this.$el.data('layer-instance', this.instanceNumber);
-    };
     // Public functions ----------------------------------------------------
-    jQuery.layers = jQuery.J = function (a_options) {
-        return this.each(function() {
-            // If no data was set, jQuery.data returns undefined
-            var instanceNumber = $(this).data('layer-instance');
-            // Verify if we already have a Layer for this node ...
-            if (instanceNumber !== undefined) {
-
-            } else {
-                // ... if not we create an instance
-                new Layer(this, a_options);
-            }
-        }
-        /*
+    jQuery.uiSliderPanel = jQuery.J = function (options) {
         try {
             defaults.panels = {};
             defaults = jQuery.extend(true, defaults, options);
@@ -575,11 +552,10 @@
         } catch (err) {
             _writeLog('error', 'Initialize', err, err.description);
         }
-        */
     };
     jQuery.J.Initialize = function (options) {
         defaults = jQuery.extend(true, defaults, options);
-        _writeLog('infoData', 'Initialize', 'Initialize the slider panel', '');
+        _writeLog('infoData', 'Initialize', 'Initialize the layers object', '');
     };
 })(jQuery);
 //#endregion

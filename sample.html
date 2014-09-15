@@ -33,6 +33,16 @@
 		</div>
 	</div>
 	<script>
+		$(document).ready(function() {
+			var options = {
+					events: {
+						log: function(a_obj, a_type, a_function, a_msg, a_info) {
+							console.log(a_obj, a_type, a_function, a_msg, a_info);
+						}
+					}
+				};
+			$.uiSliderPanel.Initialize(options);
+		});
 		var _modal = false;
 		function modal(m) {
 			_modal = m;
@@ -44,14 +54,6 @@
 				$("#sModalFalse").addClass("selected");
 			}
 		}
-		var options = {
-				events: {
-					log: function(a_obj, a_type, a_function, a_msg, a_info) {
-						console.log(a_obj, a_type, a_function, a_msg, a_info);
-					}
-				}
-			};
-		$.uiSliderPanel.Initialize(options);
 		function slideIn(mode) {
 			options = {
 				instance: "A-B",
