@@ -1,18 +1,18 @@
 //#region uiSliderPanel
 (function ($) {
-  var defaults = {
-    id: "mainSlider",
-    panels: {},
-    instances: [],
-    wrap: {
-      $el: null
-    },
-    events: {
-      initialize: function (a_panel) { },
-      closed: function () { },
-      log: function () { }
-    }
-  };
+    var defaults = {
+            id: "mainSlider",
+            panels: {},
+            instances: [],
+            wrap: {
+            $el: null
+        },
+        events: {
+            initialize: function (a_panel) { },
+            closed: function () { },
+            log: function () { }
+        }
+    };
     // Private functions ----------------------------------------------------
     var _slidePanel = function () {
         try {
@@ -20,14 +20,18 @@
             $.each(defaults.panels, function (af_key, af_panel) {
                 // envelop the elements and initialize the instance
                 if (instance.$wrap == null) {
-                    var $wrap = $("<div id='sp-"+instance.id+"'></div>");
-                    $wrap
-                        .height(af_panel.$el.height())
-                        .width(af_panel.$el.width())
+                    if (defaults.$wrap != null && defaults.$wrap.length > 0) {
+                        instance.$wrap = defaults.$wrap;
+                    } else {
+                        var $wrap = $("<div id='sp-"+instance.id+"'></div>");
+                        af_panel.$el.wrap($wrap);
+                        instance.$wrap = $("#sp-"+instance.id);
+                    }
+                    instance.$wrap
                         .css("overflow", "hidden")
-                        .css("position", "relative");
-                    af_panel.$el.wrap($wrap);
-                    instance.$wrap = $("#sp-"+instance.id);
+                        .css("position", "relative")
+                        .height(af_panel.$el.height())
+                        .width(af_panel.$el.width());
                 }
                 af_panel.$el
                     .appendTo(instance.$wrap)
@@ -536,8 +540,32 @@
     var _writeLog = function (a_type, a_function, a_msg, a_info) {
         defaults.events.log('uiSliderPanel', a_type, a_function, a_msg, a_info);
     };
+    // The Layer
+    var Layer = function(a_el, a_options) {
+        this.el       = a_el;
+        this.$el      = $(a_el);
+        // Register this instance
+        this.instanceNumber = instances.length;
+        defaults = jQuery.extend(true, defaults, a_options);
+        _writeLog('infoData', 'Constructor', 'Create the layer panel', a_options);
+        instances.push(this);
+        // Save the reference
+        this.$el.data('layer-instance', this.instanceNumber);
+    };
     // Public functions ----------------------------------------------------
-    jQuery.uiSliderPanel = jQuery.J = function (options) {
+    jQuery.layers = jQuery.J = function (a_options) {
+        return this.each(function() {
+            // If no data was set, jQuery.data returns undefined
+            var instanceNumber = $(this).data('layer-instance');
+            // Verify if we already have a Layer for this node ...
+            if (instanceNumber !== undefined) {
+
+            } else {
+                // ... if not we create an instance
+                new Layer(this, a_options);
+            }
+        }
+        /*
         try {
             defaults.panels = {};
             defaults = jQuery.extend(true, defaults, options);
@@ -547,6 +575,7 @@
         } catch (err) {
             _writeLog('error', 'Initialize', err, err.description);
         }
+        */
     };
     jQuery.J.Initialize = function (options) {
         defaults = jQuery.extend(true, defaults, options);
