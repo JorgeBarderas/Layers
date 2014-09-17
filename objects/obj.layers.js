@@ -1,7 +1,7 @@
 ;(function(factory) {
   'use strict';
 
-  if (typeof define === 'function' && define.amd) {
+  if (typeof define === 'function') {
     define(['jquery'], factory);
   } else {
     factory(jQuery);
@@ -30,10 +30,14 @@
                         iHeight = 0,
                         eHeight = 0,
                         iWidth = 0,
-                        eWidth = 0;
+                        eWidth = 0,
+                        iAlfa = 1,
+                        eAlfa = 1;
                     if (a_animation.position === undefined) {a_animation.position = 0;}
                     if (a_animation.duration === undefined) {a_animation.duration = 500;}
                     if (a_animation.mode === undefined) {a_animation.mode = "";}
+                    if (a_animation.modal === undefined) {a_animation.modal = false;}
+                    if (a_animation.origin === undefined) {a_animation.origin = 0;}
                     switch (a_animation.mode) {
                         case "rightToLeft":
                             switch (a_animation.direction) {
@@ -58,12 +62,22 @@
                                                 iHeight = eHeight = a_instance.$el.height();
                                                 if (a_animation.width != "undefined" && a_animation.width > 0) {
                                                     //intermediate
-                                                    iLeft = a_instance.$el.width();
+                                                    if (a_animation.origin > 0) {
+                                                        iLeft = a_instance.$el.width() - a_animation.origin;
+                                                        iAlfa = 0;
+                                                    } else {
+                                                        iLeft = a_instance.$el.width();
+                                                    }
                                                     eLeft = a_instance.$el.width() - a_animation.position;
                                                     iWidth = eWidth = a_animation.width;
                                                 } else {
                                                     //leading
-                                                    iLeft = a_instance.$el.width();
+                                                    if (a_animation.origin > 0) {
+                                                        iLeft = a_instance.$el.width() - a_animation.origin;
+                                                        iAlfa = 0;
+                                                    } else {
+                                                        iLeft = a_instance.$el.width();
+                                                    }
                                                     eLeft = a_instance.$el.width() - a_animation.position;
                                                     iWidth = eWidth = a_animation.position;
                                                 }
@@ -71,7 +85,12 @@
                                         } else {
                                             //full
                                             iTop = eTop = 0;
-                                            iLeft = a_instance.$el.width();
+                                            if (a_animation.origin > 0) {                                                
+                                                iLeft = a_animation.origin;
+                                                iAlfa = 0;
+                                            } else {
+                                                iLeft = a_instance.$el.width();
+                                            }
                                             eLeft = 0;
                                             iHeight = eHeight = a_instance.$el.height();
                                             iWidth = eWidth = a_instance.$el.width();
@@ -105,12 +124,22 @@
                                                 if (a_animation.width != "undefined" && a_animation.width > 0) {
                                                     //intermediate
                                                     iLeft = a_animation.position - a_animation.width;
-                                                    eLeft = -a_animation.width;
+                                                    if (a_animation.origin > 0) {
+                                                        eLeft = -a_animation.width + a_animation.origin;
+                                                        eAlfa = 0;
+                                                    } else {
+                                                        eLeft = -a_animation.width;
+                                                    }
                                                     iWidth = eWidth = a_animation.width;
                                                 } else {
                                                     //leading
                                                     iLeft = 0;
-                                                    eLeft = -a_animation.position;
+                                                    if (a_animation.origin > 0) {
+                                                        eLeft = -a_animation.origin;
+                                                        eAlfa = 0;
+                                                    } else {
+                                                        eLeft = -a_animation.position;
+                                                    }
                                                     iWidth = eWidth = a_animation.position; 
                                                 }
                                             }
@@ -118,7 +147,12 @@
                                             //full
                                             iTop = eTop = 0;
                                             iLeft = 0;
-                                            eLeft = -a_instance.$el.width();
+                                            if (a_animation.origin > 0) {                                                
+                                                eLeft = -a_animation.origin;
+                                                eAlfa = 0;
+                                            } else {
+                                                eLeft = -a_instance.$el.width();
+                                            }
                                             iHeight = eHeight = a_instance.$el.height();
                                             iWidth = eWidth = a_instance.$el.width();
                                             if (a_animation.z == 0 && a_animation.modal) {
@@ -154,12 +188,22 @@
                                                 iHeight = eHeight = a_instance.$el.height();
                                                 if (a_animation.width != "undefined" && a_animation.width > 0) {
                                                     //intermediate
-                                                    iLeft = -a_animation.width;
+                                                    if (a_animation.origin > 0) {
+                                                        iLeft = -a_animation.width + a_animation.origin;
+                                                        iAlfa = 0;
+                                                    } else {
+                                                        iLeft = -a_animation.width;
+                                                    }
                                                     eLeft = a_animation.position - a_animation.width;
                                                     iWidth = eWidth = a_animation.width;
                                                 } else {
                                                     //leading
-                                                    iLeft = -a_animation.position;
+                                                    if (a_animation.origin > 0) {
+                                                        iLeft = -a_animation.origin;
+                                                        iAlfa = 0;
+                                                    } else {
+                                                        iLeft = -a_animation.position;
+                                                    }
                                                     eLeft = 0;
                                                     iWidth = eWidth = a_animation.position;
                                                 }
@@ -167,7 +211,12 @@
                                         } else {
                                             //full
                                             iTop = eTop = 0;
-                                            iLeft = -a_instance.$el.width();
+                                            if (a_animation.origin > 0) {
+                                                iLeft = -a_animation.origin;
+                                                iAlfa = 0;
+                                            } else {
+                                                iLeft = -a_instance.$el.width();
+                                            }
                                             eLeft = 0;
                                             iHeight = eHeight = a_instance.$el.height();
                                             iWidth = eWidth = a_instance.$el.width();
@@ -201,11 +250,21 @@
                                                 iLeft = a_instance.$el.width() - a_animation.position;
                                                 if (a_animation.width != "undefined" && a_animation.width > 0) {
                                                     //intermediate
-                                                    eLeft = a_instance.$el.width();
+                                                    if (a_animation.origin > 0) {
+                                                        eLeft = a_instance.$el.width() - a_animation.origin;
+                                                        eAlfa = 0;
+                                                    } else {
+                                                        eLeft = a_instance.$el.width();
+                                                    }
                                                     iWidth = eWidth = a_animation.width;
                                                 } else {
                                                     //leading
-                                                    eLeft = a_instance.$el.width();
+                                                    if (a_animation.origin > 0) {
+                                                        eLeft = a_instance.$el.width() - a_animation.origin;
+                                                        eAlfa = 0;
+                                                    } else {
+                                                        eLeft = a_instance.$el.width();
+                                                    }
                                                     iWidth = eWidth = a_animation.position;
                                                 }
                                             }
@@ -213,7 +272,12 @@
                                             //full
                                             iTop = eTop = 0;
                                             iLeft = 0;
-                                            eLeft = a_instance.$el.width();
+                                            if (a_animation.origin > 0) {
+                                                eLeft = a_animation.origin;
+                                                eAlfa = 0;
+                                            } else {
+                                                eLeft = a_instance.$el.width();
+                                            }
                                             iHeight = eHeight = a_instance.$el.height();
                                             iWidth = eWidth = a_instance.$el.width();
                                             if (a_animation.z == 0 && a_animation.modal) {
@@ -248,19 +312,34 @@
                                                 iWidth = eWidth = a_instance.$el.width();
                                                 if (a_animation.width != "undefined" && a_animation.width > 0) {
                                                     //intermediate
-                                                    iTop = -a_animation.width;
+                                                    if (a_animation.origin > 0) {
+                                                        iTop = -a_animation.width + a_animation.origin;
+                                                        iAlfa = 0;
+                                                    } else {
+                                                        iTop = -a_animation.width;
+                                                    }
                                                     eTop = a_animation.position -a_animation.width;
                                                     iHeight = eHeight = a_animation.width;
                                                 } else {
                                                     //leading
-                                                    iTop = -a_animation.position;
+                                                    if (a_animation.origin > 0) {
+                                                        iTop = -a_animation.origin;
+                                                        iAlfa = 0;
+                                                    } else {
+                                                        iTop = -a_animation.position;
+                                                    }
                                                     eTop = 0;
                                                     iHeight = eHeight = a_animation.position;
                                                 }
                                             }
                                         } else {
                                             //full
-                                            iTop = -a_instance.$el.height();
+                                            if (a_animation.origin > 0) {
+                                                iTop = -a_animation.origin;
+                                                iAlfa = 0;
+                                            } else {
+                                                iTop = -a_instance.$el.height();
+                                            }
                                             eTop = 0;
                                             iLeft = eLeft = 0;
                                             iHeight = eHeight = a_instance.$el.height();
@@ -295,19 +374,34 @@
                                                 if (a_animation.width != "undefined" && a_animation.width > 0) {
                                                     //intermediate
                                                     iTop = a_instance.$el.height() - a_animation.position;
-                                                    eTop = a_instance.$el.height();
+                                                    if (a_animation.origin > 0) {
+                                                        eTop = a_instance.$el.height() - a_animation.origin;
+                                                        eAlfa = 0;
+                                                    } else {
+                                                        eTop = a_instance.$el.height();
+                                                    }
                                                     iHeight = eHeight = a_animation.width;
                                                 } else {
                                                     //leading
                                                     iTop = a_instance.$el.height() -a_animation.position;
-                                                    eTop = a_instance.$el.height();
+                                                    if (a_animation.origin > 0) {
+                                                        eTop = a_instance.$el.height() - a_animation.origin;
+                                                        eAlfa = 0;
+                                                    } else {
+                                                        eTop = a_instance.$el.height();
+                                                    }
                                                     iHeight = eHeight = a_animation.position;
                                                 }
                                             }
                                         } else {
                                             //full
                                             iTop = 0;
-                                            eTop = a_instance.$el.height();
+                                            if (a_animation.origin > 0) {
+                                                eTop = a_animation.origin;
+                                                eAlfa = 0;
+                                            } else {
+                                                eTop = a_instance.$el.height();
+                                            }
                                             iLeft = eLeft = 0;
                                             iHeight = eHeight = a_instance.$el.height();
                                             iWidth = eWidth = a_instance.$el.width();
@@ -344,19 +438,34 @@
                                                 iWidth = eWidth = a_instance.$el.width();
                                                 if (a_animation.width != "undefined" && a_animation.width > 0) {
                                                     //intermediate
-                                                    iTop = a_instance.$el.height();
+                                                    if (a_animation.origin > 0) {
+                                                        iTop = a_instance.$el.height() - a_animation.origin;
+                                                        iAlfa = 0;
+                                                    } else {
+                                                        iTop = a_instance.$el.height();
+                                                    }
                                                     eTop = a_instance.$el.height() -a_animation.position;
                                                     iHeight = eHeight = a_animation.width;
                                                 } else {
                                                     //leading
-                                                    iTop = a_instance.$el.height();
+                                                    if (a_animation.origin > 0) {
+                                                        iTop = a_instance.$el.height() - a_animation.origin;                                                        
+                                                        iAlfa = 0;
+                                                    } else {
+                                                        iTop = a_instance.$el.height();                                                        
+                                                    }
                                                     eTop = a_instance.$el.height() -a_animation.position;
                                                     iHeight = eHeight = a_animation.position;
                                                 }
                                             }
                                         } else {
                                             //full
-                                            iTop = a_instance.$el.height();
+                                            if (a_animation.origin > 0) {
+                                                iTop = a_animation.origin;
+                                                iAlfa = 0;
+                                            } else {
+                                                iTop = a_instance.$el.height();
+                                            }
                                             eTop = 0;
                                             iLeft = eLeft = 0;
                                             iHeight = eHeight = a_instance.$el.height();
@@ -390,19 +499,34 @@
                                                 if (a_animation.width != "undefined" && a_animation.width > 0) {
                                                     //intermediate
                                                     iTop = a_animation.position -a_animation.width;
-                                                    eTop = -a_animation.width;
+                                                    if (a_animation.origin > 0) {
+                                                        eTop = -a_animation.width + a_animation.origin;
+                                                        eAlfa = 0;
+                                                    } else {
+                                                        eTop = -a_animation.width;
+                                                    }
                                                     iHeight = eHeight = a_animation.width;
                                                 } else {
                                                     //leading
                                                     iTop = 0;
-                                                    eTop = -a_animation.position;
+                                                    if (a_animation.origin > 0) {
+                                                        eTop = -a_animation.origin;
+                                                        eAlfa = 0;
+                                                    } else {
+                                                        eTop = -a_animation.position;
+                                                    }
                                                     iHeight = eHeight = a_animation.position;
                                                 }
                                             }
                                         } else {
                                             //full
                                             iTop = 0;
-                                            eTop = -a_instance.$el.height();
+                                            if (a_animation.origin > 0) {
+                                                eTop = -a_animation.origin;
+                                                eAlfa = 0;
+                                            } else {
+                                                eTop = -a_instance.$el.height();
+                                            }
                                             iLeft = eLeft = 0;
                                             iHeight = eHeight = a_instance.$el.height();
                                             iWidth = eWidth = a_instance.$el.width();
@@ -422,20 +546,21 @@
                             iHeight = eHeight = a_instance.$el.height();
                             iWidth = eWidth = a_instance.$el.width();
                             if (a_animation.direction == "in" && a_animation.modal) {
-                                _removeModalBk(a_instance.$el, a_panel);
+                                _removeModalBk(a_instance, a_panel, a_animation);
                             } else if (a_animation.direction == "out" && a_animation.modal) {
-                                _addModalBk(a_instance.$el, a_panel);
+                                _addModalBk(a_instance, a_panel, a_animation);
                             }
                             break; //default
                     }
-                    _writeLog('info', '_animatePanel', "INI|"+a_animation.type+"|"+a_animation.mode+"|"+a_animation.direction+"|"+a_animation.z+"|"+a_instance.$el.width()+"x"+a_instance.$el.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth);
-                    _writeLog('info', '_animatePanel', "END|"+a_animation.type+"|"+a_animation.mode+"|"+a_animation.direction+"|"+a_animation.z+"|"+a_instance.$el.width()+"x"+a_instance.$el.height(), "top:"+eTop+";left:"+eLeft+";height:"+eHeight+";width:"+eWidth);
+                    _writeLog('info', '_animatePanel', "INI|"+a_animation.type+"|"+a_animation.mode+"|"+a_animation.direction+"|"+a_animation.z+"|"+a_instance.$el.width()+"x"+a_instance.$el.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth+";alfa:"+iAlfa);
+                    _writeLog('info', '_animatePanel', "END|"+a_animation.type+"|"+a_animation.mode+"|"+a_animation.direction+"|"+a_animation.z+"|"+a_instance.$el.width()+"x"+a_instance.$el.height(), "top:"+eTop+";left:"+eLeft+";height:"+eHeight+";width:"+eWidth+";alfa:"+eAlfa);
                     //positioning
                     a_panel.$el
                       .css("position", "absolute")
                       .css("top", iTop+"px")
                       .css("left", iLeft+"px")
                       .css("display", "block")
+                      .css("opacity", iAlfa)
                       .height(iHeight)
                       .width(iWidth);
 
@@ -444,7 +569,8 @@
                         top: eTop,
                         left: eLeft,
                         height: eHeight,
-                        width: eWidth
+                        width: eWidth,
+                        opacity: eAlfa
                     }, a_animation.duration);
                     break; //slider
                 case 'dialog':
@@ -561,7 +687,9 @@
         addPanels: function(a_panels) {
             var lyrs = this;
             $.each(a_panels, function () {
-                _addPanel(lyrs, this);
+                if (this.$el.length >0) {
+                    _addPanel(lyrs, this);
+                }
             });
         },
         animate: function(a_options) {

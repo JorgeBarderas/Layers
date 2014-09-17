@@ -12,7 +12,8 @@
         .selected {background-color: #85144B;}
         h1 {clear: both; color: white;}
         h2 {clear: both; color: white; padding: 10px 10px 5px 10px; margin: 0px;}
-        #wrapAB {height:400px; width: 333px;}
+        h3 {clear: both; color: white; padding: 5px 5px 2px 5px; margin: 0px;}
+        #wrapAB, #wrapHIJ {height:400px; width: 333px;}
         #panelA {height:400px; width: 333px; background-color: #FF851B; border-radius: 300px;}
         #panelB {height:400px; width: 333px; background-color: #FF4136; border-radius: 300px; display:none;}
         #panelC {height:400px; width: 333px; background-color: #39CCCC; border-radius: 300px;}
@@ -20,10 +21,13 @@
         #panelE {height:400px; width: 333px; background-color: #0074D9; border-radius: 300px;}
         #panelF {height:400px; width: 333px; background-color: #7FDBFF; border-radius: 300px; display:none;}
         #panelG {height:400px; width: 333px; background-color: #39CCCC; border-radius: 300px; display:none;}
+        #panelH {height:400px; width: 333px; background-color: #85144B; border-radius: 300px;}
+        #panelI {height:400px; width: 333px; background-color: #FF4136; border-radius: 300px; display:none;}
+        #panelJ {height:400px; width: 333px; background-color: #FF851B; border-radius: 300px; display:none;}
         .bk-modal {background-color: #222;}
     </style>
     <script src="./lib/jquery-2.1.1.min.js"></script>
-    <script src="./objects/obj.layers.js" type="text/javascript"></script>
+    <script src="./objects/obj.layers.min.js" type="text/javascript"></script>
 </head>
 <body>
     <h1>Layers</h1>
@@ -70,6 +74,11 @@
                 {id:"E", $el: $("#panelE")},
                 {id:"F", $el: $("#panelF")},
                 {id:"G", $el: $("#panelG")}
+            ]);
+            $("#wrapHIJ").layers("addPanels", [
+                {id:"H", $el: $("#panelH")},
+                {id:"I", $el: $("#panelI")},
+                {id:"J", $el: $("#panelJ")}
             ]);
         });
         function slideIn(mode) {
@@ -142,7 +151,7 @@
                 z: 1
             });
         }
-        function toppleIn(mode) {
+        function stackIn(mode) {
             $("#wrapAB").layers('animate', {
                 id: "A",
                 type: "slide",
@@ -159,7 +168,7 @@
                 z: 1
             });
         }
-        function toppleOut(mode) {
+        function stackOut(mode) {
             $("#wrapAB").layers('animate', {
                 id: "A",
                 type: "slide",
@@ -192,8 +201,8 @@
             <a href="javascript:slideOutDelay('leftToRight')">SlideOut (Delay) (left)</a>
         </p>
         <p>
-            <a href="javascript:toppleIn('rightToLeft')">ToppleIn (right)</a>
-            <a href="javascript:toppleOut('leftToRight')">ToppleOut (left)</a>
+            <a href="javascript:stackIn('rightToLeft')">stackIn (right)</a>
+            <a href="javascript:stackOut('leftToRight')">stackOut (left)</a>
         </p>
         <p>
             <a href="javascript:slideIn('leftToRight')">SlideIn (left)</a>
@@ -204,8 +213,8 @@
             <a href="javascript:slideOutDelay('rightToLeft')">SlideOut (Delay) (right)</a>
         </p>
         <p>
-            <a href="javascript:toppleIn('leftToRight')">ToppleIn (left)</a>
-            <a href="javascript:toppleOut('rightToLeft')">ToppleOut (right)</a>
+            <a href="javascript:stackIn('leftToRight')">stackIn (left)</a>
+            <a href="javascript:stackOut('rightToLeft')">stackOut (right)</a>
         </p>
         <p>
             <a href="javascript:slideIn('topToBottom')">SlideIn (top)</a>
@@ -216,8 +225,8 @@
             <a href="javascript:slideOutDelay('bottomToTop')">SlideOut (Delay) (bottom)</a>
         </p>
         <p>
-            <a href="javascript:toppleIn('topToBottom')">ToppleIn (top)</a>
-            <a href="javascript:toppleOut('bottomToTop')">ToppleOut (bottom)</a>
+            <a href="javascript:stackIn('topToBottom')">stackIn (top)</a>
+            <a href="javascript:stackOut('bottomToTop')">stackOut (bottom)</a>
         </p>
         <p>
             <a href="javascript:slideIn('bottomToTop')">SlideIn (bottom)</a>
@@ -228,8 +237,8 @@
             <a href="javascript:slideOutDelay('topToBottom')">SlideOut (Delay) (top)</a>
         </p>
         <p>
-            <a href="javascript:toppleIn('bottomToTop')">ToppleIn (bottom)</a>
-            <a href="javascript:toppleOut('topToBottom')">ToppleOut (top)</a>
+            <a href="javascript:stackIn('bottomToTop')">stackIn (bottom)</a>
+            <a href="javascript:stackOut('topToBottom')">stackOut (top)</a>
         </p>
     </div>
     <script type="text/javascript">
@@ -311,7 +320,7 @@
                 z: 1
             });
         }
-        function toppleInPartial(mode) {
+        function stackInPartial(mode) {
             $("#wrapCD").layers('animate', {
                 id: "C",
                 type: "slide",
@@ -328,7 +337,7 @@
                 z: 1
             });
         }
-        function toppleOutPartial(mode) {
+        function stackOutPartial(mode) {
             $("#wrapCD").layers('animate', {
                 id: "C",
                 type: "slide",
@@ -361,8 +370,8 @@
             <a href="javascript:slideOutDelayPartial('leftToRight')">SlideOut (Delay) (left)</a>
         </p>
         <p>
-            <a href="javascript:toppleInPartial('rightToLeft')">ToppleIn (right)</a>
-            <a href="javascript:toppleOutPartial('leftToRight')">ToppleOut (left)</a>
+            <a href="javascript:stackInPartial('rightToLeft')">stackIn (right)</a>
+            <a href="javascript:stackOutPartial('leftToRight')">stackOut (left)</a>
         </p>
         <p>
             <a href="javascript:slideInPartial('leftToRight')">SlideIn (left)</a>
@@ -373,8 +382,8 @@
             <a href="javascript:slideOutDelayPartial('rightToLeft')">SlideOut (Delay) (right)</a>
         </p>
         <p>
-            <a href="javascript:toppleInPartial('leftToRight')">ToppleIn (left)</a>
-            <a href="javascript:toppleOutPartial('rightToLeft')">ToppleOut (right)</a>
+            <a href="javascript:stackInPartial('leftToRight')">stackIn (left)</a>
+            <a href="javascript:stackOutPartial('rightToLeft')">stackOut (right)</a>
         </p>
         <p>
             <a href="javascript:slideInPartial('topToBottom')">SlideIn (top)</a>
@@ -385,8 +394,8 @@
             <a href="javascript:slideOutDelayPartial('bottomToTop')">SlideOut (Delay) (bottom)</a>
         </p>
         <p>
-            <a href="javascript:toppleInPartial('topToBottom')">ToppleIn (top)</a>
-            <a href="javascript:toppleOutPartial('bottomToTop')">ToppleOut (bottom)</a>
+            <a href="javascript:stackInPartial('topToBottom')">stackIn (top)</a>
+            <a href="javascript:stackOutPartial('bottomToTop')">stackOut (bottom)</a>
         </p>
         <p>
             <a href="javascript:slideInPartial('bottomToTop')">SlideIn (bottom)</a>
@@ -397,8 +406,8 @@
             <a href="javascript:slideOutDelayPartial('topToBottom')">SlideOut (Delay) (top)</a>
         </p>
         <p>
-            <a href="javascript:toppleInPartial('bottomToTop')">ToppleIn (bottom)</a>
-            <a href="javascript:toppleOutPartial('topToBottom')">ToppleOut (top)</a>
+            <a href="javascript:stackInPartial('bottomToTop')">stackIn (bottom)</a>
+            <a href="javascript:stackOutPartial('topToBottom')">stackOut (top)</a>
         </p>
     </div>
     <script type="text/javascript">
@@ -518,7 +527,7 @@
                 z: 2
             });
         }
-        function toppleInPartialMulti(mode) {
+        function stackInPartialMulti(mode) {
             $("#wrapEFG").layers('animate', {
                 id: "E",
                 type: "slide",
@@ -544,7 +553,7 @@
                 z: 2
             });
         }
-        function toppleOutPartialMulti(mode) {
+        function stackOutPartialMulti(mode) {
             $("#wrapEFG").layers('animate', {
                 id: "E",
                 type: "slide",
@@ -587,8 +596,8 @@
             <a href="javascript:slideOutDelayPartialMulti('leftToRight')">SlideOut (Delay) (left)</a>
         </p>
         <p>
-            <a href="javascript:toppleInPartialMulti('rightToLeft')">ToppleIn (right)</a>
-            <a href="javascript:toppleOutPartialMulti('leftToRight')">ToppleOut (left)</a>
+            <a href="javascript:stackInPartialMulti('rightToLeft')">stackIn (right)</a>
+            <a href="javascript:stackOutPartialMulti('leftToRight')">stackOut (left)</a>
         </p>
         <p>
             <a href="javascript:slideInPartialMulti('leftToRight')">SlideIn (left)</a>
@@ -599,8 +608,8 @@
             <a href="javascript:slideOutDelayPartialMulti('rightToLeft')">SlideOut (Delay) (right)</a>
         </p>
         <p>
-            <a href="javascript:toppleInPartialMulti('leftToRight')">ToppleIn (left)</a>
-            <a href="javascript:toppleOutPartialMulti('rightToLeft')">ToppleOut (right)</a>
+            <a href="javascript:stackInPartialMulti('leftToRight')">stackIn (left)</a>
+            <a href="javascript:stackOutPartialMulti('rightToLeft')">stackOut (right)</a>
         </p>
         <p>
             <a href="javascript:slideInPartialMulti('topToBottom')">SlideIn (top)</a>
@@ -611,8 +620,8 @@
             <a href="javascript:slideOutDelayPartialMulti('bottomToTop')">SlideOut (Delay) (bottom)</a>
         </p>
         <p>
-            <a href="javascript:toppleInPartialMulti('topToBottom')">ToppleIn (top)</a>
-            <a href="javascript:toppleOutPartialMulti('bottomToTop')">ToppleOut (bottom)</a>
+            <a href="javascript:stackInPartialMulti('topToBottom')">stackIn (top)</a>
+            <a href="javascript:stackOutPartialMulti('bottomToTop')">stackOut (bottom)</a>
         </p>
         <p>
             <a href="javascript:slideInPartialMulti('bottomToTop')">SlideIn (bottom)</a>
@@ -623,8 +632,197 @@
             <a href="javascript:slideOutDelayPartialMulti('topToBottom')">SlideOut (Delay) (top)</a>
         </p>
         <p>
-            <a href="javascript:toppleInPartialMulti('bottomToTop')">ToppleIn (bottom)</a>
-            <a href="javascript:toppleOutPartialMulti('topToBottom')">ToppleOut (top)</a>
+            <a href="javascript:stackInPartialMulti('bottomToTop')">stackIn (bottom)</a>
+            <a href="javascript:stackOutPartialMulti('topToBottom')">stackOut (top)</a>
+        </p>
+    </div>
+    <script type="text/javascript">
+        function slideInOrigin(mode) {
+            $("#wrapHIJ").layers('animate', {
+                id: "H",
+                type: "slide",
+                mode: "",
+                direction: "out",
+                z: 0,
+                modal: _modal
+            });
+            $("#wrapHIJ").layers('animate', {
+                id: "I",
+                type: "slide",
+                mode: mode,
+                direction: "in",
+                origin: 100,
+                z: 1
+            });
+        }
+        function slideOutOrigin(mode) {
+            $("#wrapHIJ").layers('animate', {
+                id: "H",
+                type: "slide",
+                mode: "",
+                direction: "in",
+                z: 0,
+                modal: _modal
+            });
+            $("#wrapHIJ").layers('animate', {
+                id: "I",
+                type: "slide",
+                mode: mode,
+                direction: "out",
+                origin: 100,
+                z: 1
+            });
+        }
+        function stackInPartialOrigin(mode) {
+            $("#wrapHIJ").layers('animate', {
+                id: "H",
+                type: "slide",
+                direction: "out",
+                z: 0,
+                modal: _modal
+            });
+            $("#wrapHIJ").layers('animate', {
+                id: "I",
+                type: "slide",
+                mode: mode,
+                direction: "in",
+                position: 200,
+                origin: 100,
+                z: 1
+            });
+        }
+        function stackOutPartialOrigin(mode) {
+            $("#wrapHIJ").layers('animate', {
+                id: "H",
+                type: "slide",
+                direction: "in",
+                z: 0,
+                modal: _modal
+            });
+            $("#wrapHIJ").layers('animate', {
+                id: "I",
+                type: "slide",
+                mode: mode,
+                direction: "out",
+                position: 200,
+                origin: 100,
+                z: 1
+            });
+        }
+        function stackInPartialMultiOrigin(mode) {
+            $("#wrapHIJ").layers('animate', {
+                id: "H",
+                type: "slide",
+                direction: "out",
+                z: 0,
+                modal: _modal
+            });
+            $("#wrapHIJ").layers('animate', {
+                id: "I",
+                type: "slide",
+                mode: mode,
+                direction: "in",
+                width: 60,
+                position: 150,
+                origin: 100,
+                z: 1
+            });
+            $("#wrapHIJ").layers('animate', {
+                id: "J",
+                type: "slide",
+                mode: mode,
+                direction: "in",
+                position: 90,
+                origin: 40,
+                z: 2
+            });
+        }
+        function stackOutPartialMultiOrigin(mode) {
+            $("#wrapHIJ").layers('animate', {
+                id: "H",
+                type: "slide",
+                direction: "in",
+                z: 0,
+                modal: _modal
+            });
+            $("#wrapHIJ").layers('animate', {
+                id: "I",
+                type: "slide",
+                mode: mode,
+                direction: "out",
+                width: 60,
+                position: 150,
+                origin: 100,
+                z: 1
+            });
+            $("#wrapHIJ").layers('animate', {
+                id: "J",
+                type: "slide",
+                mode: mode,
+                direction: "out",
+                position: 90,
+                origin: 40,
+                z: 2
+            });
+        }
+    </script>
+    <h2>Initial position</h2>
+    <div id='wrapHIJ' style='float: left;'>
+        <div id='panelH'></div>
+        <div id='panelI'></div>
+        <div id='panelJ'></div>
+    </div>
+    <div style="float: left;">
+        <h3>Full</h3>
+        <p>
+            <a href="javascript:slideInOrigin('rightToLeft')">SlideIn (right)</a>
+            <a href="javascript:slideOutOrigin('leftToRight')">SlideOut (left)</a>
+        </p>
+        <p>
+            <a href="javascript:slideInOrigin('leftToRight')">SlideIn (left)</a>
+            <a href="javascript:slideOutOrigin('rightToLeft')">SlideOut (right)</a>
+        </p>
+        <p>
+            <a href="javascript:slideInOrigin('topToBottom')">SlideIn (top)</a>
+            <a href="javascript:slideOutOrigin('bottomToTop')">SlideOut (bottom)</a>
+        </p>
+        <p>
+            <a href="javascript:slideInOrigin('bottomToTop')">SlideIn (bottom)</a>
+            <a href="javascript:slideOutOrigin('topToBottom')">SlideOut (top)</a>
+        </p>
+        <h3>Partial</h3>
+        <p>
+            <a href="javascript:stackInPartialOrigin('rightToLeft')">stackIn (right)</a>
+            <a href="javascript:stackOutPartialOrigin('leftToRight')">stackOut (left)</a>
+        </p>
+        <p>
+            <a href="javascript:stackInPartialOrigin('leftToRight')">stackIn (left)</a>
+            <a href="javascript:stackOutPartialOrigin('rightToLeft')">stackOut (right)</a>
+        </p>
+        <p>
+            <a href="javascript:stackInPartialOrigin('topToBottom')">StackIn (top)</a>
+            <a href="javascript:stackOutPartialOrigin('bottomToTop')">StackOut (bottom)</a>
+        </p>
+        <p>
+            <a href="javascript:stackInPartialOrigin('bottomToTop')">StackIn (bottom)</a>
+            <a href="javascript:stackOutPartialOrigin('topToBottom')">StackOut (top)</a>
+        </p>
+        <h3>Multiple</h3>
+        <p>
+            <a href="javascript:stackInPartialMultiOrigin('rightToLeft')">stackIn (right)</a>
+            <a href="javascript:stackOutPartialMultiOrigin('leftToRight')">stackOut (left)</a>
+        </p>
+        <p>
+            <a href="javascript:stackInPartialMultiOrigin('leftToRight')">stackIn (left)</a>
+            <a href="javascript:stackOutPartialMultiOrigin('rightToLeft')">stackOut (right)</a>
+        </p>
+        <p>
+            <a href="javascript:stackInPartialMultiOrigin('topToBottom')">StackIn (top)</a>
+            <a href="javascript:stackOutPartialMultiOrigin('bottomToTop')">StackOut (bottom)</a>
+        </p>
+        <p>
+            <a href="javascript:stackInPartialMultiOrigin('bottomToTop')">StackIn (bottom)</a>
+            <a href="javascript:stackOutPartialMultiOrigin('topToBottom')">StackOut (top)</a>
         </p>
     </div>
 </body>
