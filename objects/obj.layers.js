@@ -38,6 +38,7 @@
                     if (a_animation.mode === undefined) {a_animation.mode = "";}
                     if (a_animation.modal === undefined) {a_animation.modal = false;}
                     if (a_animation.origin === undefined) {a_animation.origin = 0;}
+                    if (a_animation.callback === undefined) {a_animation.callback = null;}
                     switch (a_animation.mode) {
                         case "rightToLeft":
                             switch (a_animation.direction) {
@@ -571,7 +572,13 @@
                         height: eHeight,
                         width: eWidth,
                         opacity: eAlfa
-                    }, a_animation.duration);
+                    }, a_animation.duration
+                    , function () {
+                        if (a_animation.callback != null) {
+                            _writeLog('info', '_animatePanel', "Callback triggered", "");
+                            a_animation.callback();
+                        }
+                    });
                     break; //slider
                 case 'dialog':
                     //dialog panel
@@ -591,11 +598,6 @@
                 .css("top", "0px")
                 .css("left", "0px")
                 .css("opacity", "0")
-                .css("-webkit-filter", "blur(4px)")
-                .css("-moz-filter", "blur(4px)")
-                .css("-o-filter", "blur(4px)")
-                .css("-ms-filter", "blur(4px)")
-                .css("filter", "blur(4px)")
                 .height(a_instance.$el.height())
                 .width(a_instance.$el.width())
                 .addClass("bk-modal")
@@ -604,6 +606,11 @@
                 }, a_animation.duration);
             a_panel.$el
                 .after($bk)
+                .css("-webkit-filter", "blur(1px)")
+                .css("-moz-filter", "blur(1px)")
+                .css("-o-filter", "blur(1px)")
+                .css("-ms-filter", "blur(1px)")
+                .css("filter", "blur(1px)")
                 .css("z-index", "-1");
             _writeLog('info', '_addModalBk', "Add modal panel", "");
 
@@ -622,6 +629,11 @@
                     $(this).remove();
                 });
             a_panel.$el
+                .css("-webkit-filter", "")
+                .css("-moz-filter", "")
+                .css("-o-filter", "")
+                .css("-ms-filter", "")
+                .css("filter", "")
                 .after($bk)
                 .css("z-index", "0");
             _writeLog('info', '_removeModalBk', "Remove modal panel", "");
