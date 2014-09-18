@@ -553,8 +553,8 @@
                             }
                             break; //default
                     }
-                    _writeLog('info', '_animatePanel', "INI|"+a_animation.type+"|"+a_animation.mode+"|"+a_animation.direction+"|"+a_animation.z+"|"+a_instance.$el.width()+"x"+a_instance.$el.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth+";alfa:"+iAlfa);
-                    _writeLog('info', '_animatePanel', "END|"+a_animation.type+"|"+a_animation.mode+"|"+a_animation.direction+"|"+a_animation.z+"|"+a_instance.$el.width()+"x"+a_instance.$el.height(), "top:"+eTop+";left:"+eLeft+";height:"+eHeight+";width:"+eWidth+";alfa:"+eAlfa);
+                    _writeLog('info', '_animatePanel', "INI|"+a_animation.type+"|"+a_animation.mode+"|"+a_animation.direction+"|"+a_animation.z+"|"+a_animation.position+"|"+a_animation.origin+"|"+a_instance.$el.width()+"x"+a_instance.$el.height(), "top:"+iTop+";left:"+iLeft+";height:"+iHeight+";width:"+iWidth+";alfa:"+iAlfa);
+                    _writeLog('info', '_animatePanel', "END|"+a_animation.type+"|"+a_animation.mode+"|"+a_animation.direction+"|"+a_animation.z+"|"+a_animation.position+"|"+a_animation.origin+"|"+a_instance.$el.width()+"x"+a_instance.$el.height(), "top:"+eTop+";left:"+eLeft+";height:"+eHeight+";width:"+eWidth+";alfa:"+eAlfa);
                     //positioning
                     a_panel.$el
                       .css("position", "absolute")
@@ -565,6 +565,9 @@
                       .height(iHeight)
                       .width(iWidth);
 
+                    var h = a_instance.$el.height(),
+                        w = a_instance.$el.width();
+                    a_instance.animations++;
                     // animation
                     a_panel.$el.animate({
                         top: eTop,
@@ -578,6 +581,24 @@
                             _writeLog('info', '_animatePanel', "Callback triggered", "");
                             a_animation.callback();
                         }
+                        if (a_animation.z >0) {
+                            a_panel.$el.attr("fixed", "true");
+                        }
+                        a_instance.$el
+                            .width(w)
+                            .height(h);
+                        if (a_animation.direction == "out" && (a_animation.z >0 || (a_animation.z == 0 && a_animation.position == 0 && a_animation.mode != ""))) {
+                            a_panel.$el.css("display", "none");
+                        }
+                        a_instance.animations--;
+                        if (a_instance.animations==0) {
+                            _endAnimation(a_instance);
+                            /*
+                            if (a_instance.$el.hasScrollBar()) {
+                                a_instance.$el.width(a_instance.$el.width()-a_instance.$el.getScrollBarWidth());
+                            }
+                            */
+                        }
                     });
                     break; //slider
                 case 'dialog':
@@ -589,6 +610,15 @@
         } catch (err) {
             _writeLog('error', '_animatePanel', err, err.description);
         }
+    };
+    var _endAnimation = function (a_instance) {
+        a_instance.$el
+            .css("overflow", "auto")
+            .css("width", "");
+        $.each(a_instance.panels, function() {
+            if (this.$el.attr("fixed") === undefined) this.$el.css("width", "");
+        });
+        $(".bk-modal", a_instance.$el).width($(".bk-modal", a_instance.$el).prev().width());
     };
     var _addModalBk = function (a_instance, a_panel, a_animation) {
         try {
@@ -683,9 +713,10 @@
         this.el       = a_el;
         this.$el      = $(a_el);
         this.$el
-            .css("overflow", "hidden")
+            //.css("overflow", "hidden")
             .css("position", "relative");
         this.panels   = [];
+        this.animations = 0;
 
         // Register this instance
         this.instanceNumber = instances.length;
@@ -704,13 +735,17 @@
                 }
             });
         },
-        animate: function(a_options) {
-            var panel = _getPanel(this, a_options.id);
-            if (panel) {
-                _animatePanel(this, panel, a_options);
-            } else {
-                _writeLog('warning', 'animate', 'Panel not found', a_options.id);
-            }
+        animate: function(a_elements) {
+            var instance = this;
+            instance.$el.css("overflow", "hidden");
+            $.each(a_elements, function() {
+                var panel = _getPanel(instance, this.id);
+                if (panel) {
+                    _animatePanel(instance, panel, this);
+                } else {
+                    _writeLog('warning', 'animate', 'Panel not found', this.id);
+                }
+            });
         }
     });
     // Register the jQuery selector actions
@@ -752,7 +787,7 @@
             var $wrap = $("<div></div>");
             $wrap
                 .attr("id", a_id)
-                .css("overflow", "hidden")
+                //.css("overflow", "hidden")
                 .css("position", "relative")
                 .height($a_panel.height())
                 .width($a_panel.width());
@@ -765,3 +800,38 @@
         return [];
     };
 });
+(function($) {
+    $.fn.hasScrollBar = function() {
+        return this.get(0).scrollHeight > this.height();
+    }
+    $.fn.getScrollBarWidth = function() {
+        try {
+            var inner = document.createElement('p');
+            inner.style.width = "100%";
+            inner.style.height = "200px";
+
+            var outer = document.createElement('div');
+            outer.style.position = "absolute";
+            outer.style.top = "0px";
+            outer.style.left = "0px";
+            outer.style.visibility = "hidden";
+            outer.style.width = "200px";
+            outer.style.height = "150px";
+            outer.style.overflow = "hidden";
+            outer.appendChild (inner);
+
+            this.get(0).appendChild (outer);
+            var w1 = inner.offsetWidth;
+            outer.style.overflow = 'scroll';
+            var w2 = inner.offsetWidth;
+            if (w1 == w2) w2 = outer.clientWidth;
+
+            this.get(0).removeChild (outer);
+
+            return (w1 - w2);            
+        } catch (err) {
+            if (console !== undefined) {console.log("getScrollBarWidth", err, err.description);}
+        }
+        return 0;
+    }
+})(jQuery);

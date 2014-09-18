@@ -3,7 +3,7 @@
 <head>
     <title>Layers</title>
     <style>
-        body {background-color: #222; font-family: arial, verdana, sans-serif;}
+        body {background-color: #222; font-family: arial, verdana, sans-serif; margin: 0px;}
         a {color: white; padding: 5px 10px; margin: 0px 5px; border: solid 1px white; text-decoration: none; font-size: .8em; background-color: #111; border-radius: 2px;}
         a:hover {background-color: #333;}
         .uiRadio a {margin:0px;}
@@ -13,7 +13,7 @@
         h1 {clear: both; color: white;}
         h2 {clear: both; color: white; padding: 10px 10px 5px 10px; margin: 0px;}
         h3 {clear: both; color: white; padding: 5px 5px 2px 5px; margin: 0px;}
-        #options {display: none; background-color: #555; border-right: solid 1px white;}
+        #options {display: none; background-color: #555; border-right: solid 1px white; z-index: 2;}
         #wrapAB, #wrapHIJ {height:400px; width: 333px;}
         #wrapKL {height:333px; width: 333px;}
         #panelA {height:400px; width: 333px; background-color: #FF851B; border-radius: 300px;}
@@ -60,40 +60,44 @@
                 {id:"options", $el: $("#options")}
             ]);
             function showOptions() {
-                $("body").layers('animate', {
-                    id: "content",
-                    type: "slide",
-                    mode: "",
-                    direction: "out",
-                    z: 0,
-                    modal: true
-                });
-                $("body").layers('animate', {
-                    id: "options",
-                    type: "slide",
-                    mode: "leftToRight",
-                    direction: "in",
-                    position: 200,
-                    z: 1
-                });
+                $("body").layers('animate', [
+                    {
+                        id: "content",
+                        type: "slide",
+                        mode: "",
+                        direction: "out",
+                        z: 0,
+                        modal: true
+                    }
+                    ,{
+                        id: "options",
+                        type: "slide",
+                        mode: "leftToRight",
+                        direction: "in",
+                        position: 200,
+                        z: 1
+                    }
+                ]);
             }
             function hideOptions() {
-                $("body").layers('animate', {
-                    id: "content",
-                    type: "slide",
-                    mode: "",
-                    direction: "in",
-                    z: 0,
-                    modal: true
-                });
-                $("body").layers('animate', {
-                    id: "options",
-                    type: "slide",
-                    mode: "rightToLeft",
-                    direction: "out",
-                    position: 200,
-                    z: 1
-                });
+                $("body").layers('animate', [
+                    {
+                        id: "content",
+                        type: "slide",
+                        mode: "",
+                        direction: "in",
+                        z: 0,
+                        modal: true
+                    }
+                    ,{
+                        id: "options",
+                        type: "slide",
+                        mode: "rightToLeft",
+                        direction: "out",
+                        position: 200,
+                        z: 1
+                    }
+                ]);
             }
         </script>
         <script>
@@ -132,108 +136,120 @@
                 ]);
             });
             function slideIn(mode) {
-                $("#wrapAB").layers('animate', {
-                    id: "A",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapAB").layers('animate', {
-                    id: "B",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    z: 1
-                });
+                $("#wrapAB").layers('animate', [
+                    {
+                        id: "A",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "B",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        z: 1
+                    }
+                ]);
             }
             function slideOut(mode) {
-                $("#wrapAB").layers('animate', {
-                    id: "A",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapAB").layers('animate', {
-                    id: "B",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    z: 1
-                });
+                $("#wrapAB").layers('animate', [
+                    {
+                        id: "A",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "B",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        z: 1
+                    }
+                ]);
             }
             function slideInDelay(mode) {
-                $("#wrapAB").layers('animate', {
-                    id: "A",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    duration: 900,
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapAB").layers('animate', {
-                    id: "B",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    z: 1
-                });
+                $("#wrapAB").layers('animate', [
+                    {
+                        id: "A",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        duration: 900,
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "B",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        z: 1
+                    }
+                ]);
             }
             function slideOutDelay(mode) {
-                $("#wrapAB").layers('animate', {
-                    id: "A",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapAB").layers('animate', {
-                    id: "B",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    duration: 900,
-                    z: 1
-                });
+                $("#wrapAB").layers('animate', [
+                    {
+                        id: "A",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "B",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        duration: 900,
+                        z: 1
+                    }
+                ]);
             }
             function stackIn(mode) {
-                $("#wrapAB").layers('animate', {
-                    id: "A",
-                    type: "slide",
-                    mode: "",
-                    direction: "out",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapAB").layers('animate', {
-                    id: "B",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    z: 1
-                });
+                $("#wrapAB").layers('animate', [
+                    {
+                        id: "A",
+                        type: "slide",
+                        mode: "",
+                        direction: "out",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "B",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        z: 1
+                    }
+                ]);
             }
             function stackOut(mode) {
-                $("#wrapAB").layers('animate', {
-                    id: "A",
-                    type: "slide",
-                    mode: "",
-                    direction: "in",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapAB").layers('animate', {
-                    id: "B",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    z: 1
-                });
+                $("#wrapAB").layers('animate', [
+                    {
+                        id: "A",
+                        type: "slide",
+                        mode: "",
+                        direction: "in",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "B",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        z: 1
+                    }
+                ]);
             }
         </script>
         <h2>Layers (full)</h2>
@@ -293,116 +309,128 @@
         </div>
         <script type="text/javascript">
             function slideInPartial(mode) {
-                $("#wrapCD").layers('animate', {
-                    id: "C",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    position: -80,
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapCD").layers('animate', {
-                    id: "D",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: 80,
-                    z: 1
-                });
+                $("#wrapCD").layers('animate', [
+                    {
+                        id: "C",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        position: -80,
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "D",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: 80,
+                        z: 1
+                    }
+                ]);
             }
             function slideOutPartial(mode) {
-                $("#wrapCD").layers('animate', {
-                    id: "C",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: -80,
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapCD").layers('animate', {
-                    id: "D",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    position: 80,
-                    z: 1
-                });
+                $("#wrapCD").layers('animate', [
+                    {
+                        id: "C",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: -80,
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "D",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        position: 80,
+                        z: 1
+                    }
+                ]);
             }
             function slideInDelayPartial(mode) {
-                $("#wrapCD").layers('animate', {
-                    id: "C",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    duration: 900,
-                    position: -80,
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapCD").layers('animate', {
-                    id: "D",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: 80,
-                    z: 1
-                });
+                $("#wrapCD").layers('animate', [
+                    {
+                        id: "C",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        duration: 900,
+                        position: -80,
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "D",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: 80,
+                        z: 1
+                    }
+                ]);
             }
             function slideOutDelayPartial(mode) {
-                $("#wrapCD").layers('animate', {
-                    id: "C",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: -80,
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapCD").layers('animate', {
-                    id: "D",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    duration: 900,
-                    position: 80,
-                    z: 1
-                });
+                $("#wrapCD").layers('animate', [
+                    {
+                        id: "C",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: -80,
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "D",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        duration: 900,
+                        position: 80,
+                        z: 1
+                    }
+                ]);
             }
             function stackInPartial(mode) {
-                $("#wrapCD").layers('animate', {
-                    id: "C",
-                    type: "slide",
-                    direction: "out",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapCD").layers('animate', {
-                    id: "D",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: 80,
-                    z: 1
-                });
+                $("#wrapCD").layers('animate', [
+                    {
+                        id: "C",
+                        type: "slide",
+                        direction: "out",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "D",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: 80,
+                        z: 1
+                    }
+                ]);
             }
             function stackOutPartial(mode) {
-                $("#wrapCD").layers('animate', {
-                    id: "C",
-                    type: "slide",
-                    direction: "in",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapCD").layers('animate', {
-                    id: "D",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    position: 80,
-                    z: 1
-                });
+                $("#wrapCD").layers('animate', [
+                    {
+                        id: "C",
+                        type: "slide",
+                        direction: "in",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "D",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        position: 80,
+                        z: 1
+                    }
+                ]);
             }
         </script>
         <h2>Layers (partial)</h2>
@@ -462,172 +490,184 @@
         </div>
         <script type="text/javascript">
             function slideInPartialMulti(mode) {
-                $("#wrapEFG").layers('animate', {
-                    id: "E",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    position: -150,
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "F",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: 150,
-                    width: 60,
-                    z: 1
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "G",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: 90,
-                    z: 2
-                });
+                $("#wrapEFG").layers('animate', [
+                    {
+                        id: "E",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        position: -150,
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "F",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: 150,
+                        width: 60,
+                        z: 1
+                    }
+                    ,{
+                        id: "G",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: 90,
+                        z: 2
+                    }
+                ]);
             }
             function slideOutPartialMulti(mode) {
-                $("#wrapEFG").layers('animate', {
-                    id: "E",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: -150,
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "F",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    position: 150,
-                    width: 60,
-                    z: 1
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "G",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    position: 90,
-                    z: 2
-                });
+                $("#wrapEFG").layers('animate', [
+                    {
+                        id: "E",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: -150,
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "F",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        position: 150,
+                        width: 60,
+                        z: 1
+                    }
+                    ,{
+                        id: "G",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        position: 90,
+                        z: 2
+                    }
+                ]);
             }
             function slideInDelayPartialMulti(mode) {
-                $("#wrapEFG").layers('animate', {
-                    id: "E",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    duration: 900,
-                    position: -150,
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "F",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    duration: 700,
-                    width: 60,
-                    position: 150,
-                    z: 1
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "G",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: 90,
-                    z: 2
-                });
+                $("#wrapEFG").layers('animate', [
+                    {
+                        id: "E",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        duration: 900,
+                        position: -150,
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "F",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        duration: 700,
+                        width: 60,
+                        position: 150,
+                        z: 1
+                    }
+                    ,{
+                        id: "G",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: 90,
+                        z: 2
+                    }
+                ]);
             }
             function slideOutDelayPartialMulti(mode) {
-                $("#wrapEFG").layers('animate', {
-                    id: "E",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: -150,
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "F",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    duration: 700,
-                    width: 60,
-                    position: 150,
-                    z: 1
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "G",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    duration: 900,
-                    position: 90,
-                    z: 2
-                });
+                $("#wrapEFG").layers('animate', [
+                    {
+                        id: "E",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: -150,
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "F",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        duration: 700,
+                        width: 60,
+                        position: 150,
+                        z: 1
+                    }
+                    ,{
+                        id: "G",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        duration: 900,
+                        position: 90,
+                        z: 2
+                    }
+                ]);
             }
             function stackInPartialMulti(mode) {
-                $("#wrapEFG").layers('animate', {
-                    id: "E",
-                    type: "slide",
-                    direction: "out",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "F",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    width: 60,
-                    position: 150,
-                    z: 1
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "G",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: 90,
-                    z: 2
-                });
+                $("#wrapEFG").layers('animate', [
+                    {
+                        id: "E",
+                        type: "slide",
+                        direction: "out",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "F",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        width: 60,
+                        position: 150,
+                        z: 1
+                    }
+                    ,{
+                        id: "G",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: 90,
+                        z: 2
+                    }
+                ]);
             }
             function stackOutPartialMulti(mode) {
-                $("#wrapEFG").layers('animate', {
-                    id: "E",
-                    type: "slide",
-                    direction: "in",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "F",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    width: 60,
-                    position: 150,
-                    z: 1
-                });
-                $("#wrapEFG").layers('animate', {
-                    id: "G",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    position: 90,
-                    z: 2
-                });
+                $("#wrapEFG").layers('animate', [
+                    {
+                        id: "E",
+                        type: "slide",
+                        direction: "in",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "F",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        width: 60,
+                        position: 150,
+                        z: 1
+                    }
+                    ,{
+                        id: "G",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        position: 90,
+                        z: 2
+                    }
+                ]);
             }
         </script>
         <h2>Multiple layers (partial)</h2>
@@ -688,132 +728,144 @@
         </div>
         <script type="text/javascript">
             function slideInOrigin(mode) {
-                $("#wrapHIJ").layers('animate', {
-                    id: "H",
-                    type: "slide",
-                    mode: "",
-                    direction: "out",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapHIJ").layers('animate', {
-                    id: "I",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    origin: 100,
-                    z: 1
-                });
+                $("#wrapHIJ").layers('animate', [
+                    {
+                        id: "H",
+                        type: "slide",
+                        mode: "",
+                        direction: "out",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "I",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        origin: 100,
+                        z: 1
+                    }
+                ]);
             }
             function slideOutOrigin(mode) {
-                $("#wrapHIJ").layers('animate', {
-                    id: "H",
-                    type: "slide",
-                    mode: "",
-                    direction: "in",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapHIJ").layers('animate', {
-                    id: "I",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    origin: 100,
-                    z: 1
-                });
+                $("#wrapHIJ").layers('animate', [
+                    {
+                        id: "H",
+                        type: "slide",
+                        mode: "",
+                        direction: "in",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "I",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        origin: 100,
+                        z: 1
+                    }
+                ]);
             }
             function stackInPartialOrigin(mode) {
-                $("#wrapHIJ").layers('animate', {
-                    id: "H",
-                    type: "slide",
-                    direction: "out",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapHIJ").layers('animate', {
-                    id: "I",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: 200,
-                    origin: 100,
-                    z: 1
-                });
+                $("#wrapHIJ").layers('animate', [
+                    {
+                        id: "H",
+                        type: "slide",
+                        direction: "out",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "I",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: 200,
+                        origin: 100,
+                        z: 1
+                    }
+                ]);
             }
             function stackOutPartialOrigin(mode) {
-                $("#wrapHIJ").layers('animate', {
-                    id: "H",
-                    type: "slide",
-                    direction: "in",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapHIJ").layers('animate', {
-                    id: "I",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    position: 200,
-                    origin: 100,
-                    z: 1
-                });
+                $("#wrapHIJ").layers('animate', [
+                    {
+                        id: "H",
+                        type: "slide",
+                        direction: "in",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "I",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        position: 200,
+                        origin: 100,
+                        z: 1
+                    }
+                ]);
             }
             function stackInPartialMultiOrigin(mode) {
-                $("#wrapHIJ").layers('animate', {
-                    id: "H",
-                    type: "slide",
-                    direction: "out",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapHIJ").layers('animate', {
-                    id: "I",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    width: 60,
-                    position: 150,
-                    origin: 100,
-                    z: 1
-                });
-                $("#wrapHIJ").layers('animate', {
-                    id: "J",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    position: 90,
-                    origin: 40,
-                    z: 2
-                });
+                $("#wrapHIJ").layers('animate', [
+                    {
+                        id: "H",
+                        type: "slide",
+                        direction: "out",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "I",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        width: 60,
+                        position: 150,
+                        origin: 100,
+                        z: 1
+                    }
+                    ,{
+                        id: "J",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        position: 90,
+                        origin: 40,
+                        z: 2
+                    }
+                ]);
             }
             function stackOutPartialMultiOrigin(mode) {
-                $("#wrapHIJ").layers('animate', {
-                    id: "H",
-                    type: "slide",
-                    direction: "in",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapHIJ").layers('animate', {
-                    id: "I",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    width: 60,
-                    position: 150,
-                    origin: 100,
-                    z: 1
-                });
-                $("#wrapHIJ").layers('animate', {
-                    id: "J",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    position: 90,
-                    origin: 40,
-                    z: 2
-                });
+                $("#wrapHIJ").layers('animate', [
+                    {
+                        id: "H",
+                        type: "slide",
+                        direction: "in",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "I",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        width: 60,
+                        position: 150,
+                        origin: 100,
+                        z: 1
+                    }
+                    ,{
+                        id: "J",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        position: 90,
+                        origin: 40,
+                        z: 2
+                    }
+                ]);
             }
         </script>
         <h2>Initial position</h2>
@@ -875,7 +927,7 @@
                 <a href="javascript:stackOutPartialMultiOrigin('topToBottom')">StackOut (top)</a>
             </p>
         </div>
-        <<script type="text/javascript">
+        <script type="text/javascript">
             function slideInEvents(mode) {
                 var next = "";
                 switch (mode) {
@@ -893,22 +945,24 @@
                         break;
                 }
                 var cb = function() {slideOutEvents(next)};
-                $("#wrapKL").layers('animate', {
-                    id: "K",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapKL").layers('animate', {
-                    id: "L",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    z: 1,
-                    callback: cb
-                });
+                $("#wrapKL").layers('animate', [
+                    {
+                        id: "K",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "L",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        z: 1,
+                        callback: cb
+                    }
+                ]);
             }
             function slideOutEvents(mode) {
                 var next = "";
@@ -927,22 +981,24 @@
                 }
                 var cb = null;
                 if (next != "") cb = function() {slideInEvents(next)};
-                $("#wrapKL").layers('animate', {
-                    id: "K",
-                    type: "slide",
-                    mode: mode,
-                    direction: "in",
-                    z: 0,
-                    modal: _modal
-                });
-                $("#wrapKL").layers('animate', {
-                    id: "L",
-                    type: "slide",
-                    mode: mode,
-                    direction: "out",
-                    z: 1,
-                    callback: cb
-                });
+                $("#wrapKL").layers('animate', [
+                    {
+                        id: "K",
+                        type: "slide",
+                        mode: mode,
+                        direction: "in",
+                        z: 0,
+                        modal: _modal
+                    }
+                    ,{
+                        id: "L",
+                        type: "slide",
+                        mode: mode,
+                        direction: "out",
+                        z: 1,
+                        callback: cb
+                    }
+                ]);
             }
         </script>
         <h2>Events</h2>
