@@ -616,7 +616,11 @@
             .css("overflow", "auto")
             .css("width", "");
         $.each(a_instance.panels, function() {
-            if (this.$el.attr("fixed") === undefined) this.$el.css("width", "");
+            if (this.$el.attr("fixed") === undefined) {
+                this.$el
+                    .css("width", "")
+                    .css("height", "");
+            }
         });
         $(".bk-modal", a_instance.$el).width($(".bk-modal", a_instance.$el).prev().width());
     };
@@ -732,6 +736,15 @@
             $.each(a_panels, function () {
                 if (this.$el.length >0) {
                     _addPanel(lyrs, this);
+                }
+            });
+        },
+        removePanels: function(a_panels) {
+            var lyrs = this;
+            $.each(a_panels, function () {
+                var p = _getPanel(lyrs, this.id);
+                if (p) {
+                    lyrs.panels.pop(p);
                 }
             });
         },
